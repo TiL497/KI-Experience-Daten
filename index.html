@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="mqtt.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+  <div style="display:flex">
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="#" onClick="switchSite(0)">Grundlagen</a>
+      <a href="#" onClick="switchSite(1)">Gyrosensor</a>
+      <a href="#" onClick="switchSite(2)">Audio Spektrogramm</a>
+      <a href="#" onClick="switchSite(3)" style="margin-top: 70vh;">Einstellungen</a>
+    </div>
+
+    <span style="margin-top: 0.5%; margin-left: 1%;font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
+    <h2 id="heading" style="margin-top: 1%; margin-left: 2%; font-family: Arial; width: 78%">Daten - Exponat Prototyp</h2>
+    <img src="img/logo.png" style="width: 20%;">
+    <div style="width: 2%"></div>
+  </div>
+
+  <div style="display:block" id="divData">
+    <div style="margin-top: 2%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
+      <div style="display:flex; width: 95%; height: 95%" id="divDataBasics">
+        <div style="display:flex; flex-direction: column; width:10%">
+          <div style="height:45%; width:100%">
+          </div>
+          <div style="height:10%; width:100%;">
+            <button style="margin-left: 65%; margin-top: 5%;" class="button button_next" onClick="nextPage(0)">&#60;</button>
+          </div>
+          <div style="height:45%; width:100%">
+          </div>
+        </div>
+        <div style="border-color: #0068B4; border-style: inset; border-width:5px; width:80%">
+          <div style="display:block;" id="divDataWhat">
+            <h2 style="margin-left: 1%; margin-top: 3%;">Navigation</h2>
+            <div style="display:flex; flex-direction:row; width:99%; height:80%; margin-top: 2%;">
+              <div class="paragraphBasics" style="margin-left: 1%">
+                <h1 style="margin-left: 5%;">Rohdaten</h1>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Was sind Rohdaten?</p>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Welche Formate können sie annehmen?</p>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Was ist der Unterschied zwischen einem analogen und einem digitalen Signal?</p>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie entsteht ein digitales Signal?</p>
+              </div>
+              <div class="paragraphBasics" style="margin-left: 0.5%;">
+                <h1 style="margin-left: 5%;">Verarbeitung</h1>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie erzeuge ich nützliche Informationen aus meinen Rohdaten?</p>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Welche Werkzeuge kann ich verwenden? (Beispiele mit Smartphone-Sensoren)</p>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie kann ich meine Daten darstellen? (Beispiele mit Smartphone-Sensoren)</p>
+              </div>
+              <div class="paragraphBasics" style="margin-left: 0.5%;">
+                <h1 style="margin-left: 5%;">Interpretation</h1>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Welchen Nutzen haben meine verarbeiteten Daten?</p>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie kann ich meine Daten interpetieren?</p>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Tägliches Beispiel: Wie zählt mein Smartphone meine Schritte?</p>
+              </div>
+            </div>
+          </div>
+          <div style="display:none;" id="divDataAnalogDigital">
+            <h2 style="margin-left: 1%; margin-top: 3%;">Platzhalter</h2>
+            <div style="display:flex; flex-direction: row;">
+              <div style="height:50%; width:40%; margin-left: 2%;">
+                <canvas id="audio_analog"></canvas>
+              </div>
+              <div style="height:50%; width:40%; margin-left: 15%;">
+                <canvas id="audio_digital"></canvas>
+              </div>
+            </div>
+          </div>
+          <div style="display:none; margin-left:5%;" id="divDataTransfer">
+            <h2 style="margin-top: 3%;">Platzhalter</h2>
+            <canvas width="820" height="650" id="cvs_raw"></canvas>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction: column; width:10%">
+          <div style="height:45%; width:100%">
+          </div>
+          <div style="height:10%; width:100%;">
+            <button style="margin-left: 5%; margin-top: 5%;" class="button button_next" onClick="nextPage(1)">&#62;</button>
+          </div>
+          <div style="height:45%; width:100%">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:none" id="divGyro">
+    <div style="margin-top: 2%; margin-left: 5%; display:flex; flex-direction: column; height: 82vh;">
+      <div style="display: flex;">
+        <div style="height:35vh; width:80vw">
+          <canvas id="gyro_x"></canvas>
+        </div>
+        <div style="height:35vh; width:80vw">
+          <canvas id="gyro_y"></canvas>
+        </div>
+      </div>
+      <div style="margin-top: 5%; display:flex">
+        <div style="height:35vh; width:80vw">
+          <canvas id="gyro_z"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div style="display:none" id="divAudio">
+    <div style="margin-top: 2%;display:flex; height: 82vh;">
+      <div style="margin-left:2%">
+        <canvas width="100" height="788" id="cvs_axis"></canvas>
+      </div>
+      <div>
+        <canvas width="768" height="788" id="cvs_spectro"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:none" id="divSettings">
+    <div style="margin-top: 2%;display:flex; flex-direction: column; height: 82vh;">
+      <div style="display:flex; flex-direction: row;">
+        <div style="width: 43vw"></div>
+        <div style="width: 57vw">
+          <p>MQTT Server Einstellungen</p>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction: row;">
+        <div style="width: 39vw"></div>
+        <div style="width: 8vw">
+          <p>Aktuelle Addresse: </p>
+        </div>
+        <div style="width: 53vw">
+          <p id="MQTTIP"></p>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction: row;">
+        <div style="width: 39vw"></div>
+        <div style="width: 8vw">
+          <p>Neue Adresse: </p>
+        </div>
+        <div style="width: 53vw">
+          <input style="margin-top: 15px" type="text" id="newMQTTIP"> 
+        </div>
+      </div>
+      <div style="display:flex; flex-direction: row;">
+        <div style="width: 44.5vw"></div>
+        <div style="width: 55.5vw">
+          <input class="submitButton" style="margin-top: 2%;" type="button" value="Übernehmen" onClick="initMQTT(1)"> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;">
+    <div style="width: 90%;"></div>
+    <div style="width: 10%">
+      <p> Preview Version 10/23</p>
+    </div>
+  </div>
+
+<script>
+
+  sites = ["divData", "divGyro", "divAudio", "divSettings"];
+  headings = ["Grundlagen", "Gyrosensor - Dashboard", "Audio Spektrogramm - Dashboard", "Einstellungen"];
+  basic_sites = ["divDataWhat", "divDataAnalogDigital", "divDataTransfer"]; 
+  active = 0; 
+  basic_site_idx = 0; 
+
+  displayPage(); 
+
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+
+  function switchSite(id) {
+    if (id == active){
+      return; 
+    }
+    for (i = 0; i < sites.length; i++){
+      document.getElementById(sites[i]).style.display = "none";
+    }
+    document.getElementById(sites[id]).style.display = "block"; 
+    document.getElementById("heading").innerHTML = headings[id]; 
+    active = id; 
+    closeNav(); 
+  }
+
+  function nextPage(dir){
+    if ((dir == 0) && (basic_site_idx > 0)){
+      basic_site_idx -= 1; 
+    } else if ((dir == 1) && (basic_site_idx < (basic_sites.length - 1))){
+      basic_site_idx += 1; 
+    }
+    displayPage(); 
+  }
+
+  function displayPage(){
+    for (i = 0; i < basic_sites.length; i++){
+      document.getElementById(basic_sites[i]).style.display = "none";
+    }
+    document.getElementById(basic_sites[basic_site_idx]).style.display = "block"; 
+  }
+
+  //Create MQTT Client ID
+  const client_id = 'mqttjs_' + Math.random().toString(16).substr(2, 8);
+  //connection url for MQTT connect
+  var host = 'ws://192.168.137.1:9001';
+  //ws://broker.hivemq.com:8000/mqtt
+
+  document.getElementById("MQTTIP").innerHTML = host; 
+
+  //MQTT Options
+  const options = {
+    keepalive: 60,
+    clientId: client_id,
+    protocolId: 'MQTT',
+    protocolVersion: 4,
+    clean: true,
+    reconnectPeriod: 1000,
+    connectTimeout: 30 * 1000,
+    will: {
+    topic: 'WillMsg',
+    payload: 'Connection Closed abnormally..!',
+    qos: 0,
+    retain: false
+    },
+  }
+
+  var x_counter = 0
+  var y_counter = 0
+  var z_counter = 0
+
+  //Create Connection and Subscribe to all subtopics from factory
+  console.log('Connecting mqtt client');
+  let client = mqtt.connect(host, options);
+  initMQTT(0); 
+
+  function initMQTT(newIP){
+    if (newIP){
+      new_host = document.getElementById("newMQTTIP").value; 
+      console.log(new_host);
+      document.getElementById("MQTTIP").innerHTML = new_host; 
+      //disconnect 
+      client.end();
+      //connect 
+      client = mqtt.connect(new_host, options);
+    }
+
+    //Error Handling
+    client.on('error', (err) => {
+      console.log('Connection error: ', err);
+      client.end();
+    })
+
+    client.on('connect', function() {
+      console.log('connected');
+    })
+
+    client.on('disconnect', function (packet) {
+      console.log(packet);
+    })
+
+    client.on('close', function () {
+      console.log('Disconnected');
+    })
+
+    //subscripe to topic 
+    client.subscribe('gyro/#'); 
+    client.subscribe('audio/#');
+
+    //fetch data 
+    client.on('message', (topic, message) => {
+      topic_target = topic.toString();
+      //split topic and send data to viz 
+      if (topic_target == "gyro/x") {
+        addData(chart_gyro_x, x_counter, parseFloat(message));
+        x_counter += 1;  
+      } else if (topic_target == "gyro/y"){
+        addData(chart_gyro_y, y_counter, parseFloat(message)); 
+        y_counter += 1; 
+      } else if (topic_target == "gyro/z"){
+        addData(chart_gyro_z, z_counter, parseFloat(message)); 
+        z_counter += 1; 
+      } else if (topic_target == "audio"){
+        spectrogram.newData(message.toString());
+      }
+    })
+
+  }
+
+  //Gyrosensor x direction Chart
+  const ctx_x = document.getElementById('gyro_x');
+  var data_x = [];
+  var label_x = [];
+
+  var chart_gyro_x =new Chart(ctx_x, {
+    type: 'line',
+    data: {
+      labels: label_x,
+      datasets: [{
+        label: 'Gyro Raw - x direction',
+        data: data_x,
+        borderWidth: 1,
+        borderColor: 'rgb(234, 0, 0)',
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          ticks: {
+              stepSize: 1
+          }
+        },
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Gyrosensor x'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_gyro_x.options.animation = false;
+
+  //Gyrosensor y direction Chart 
+  const ctx_y = document.getElementById('gyro_y');
+  var data_y = [];
+  var label_y = [];
+
+  var chart_gyro_y = new Chart(ctx_y, {
+    type: 'line',
+    data: {
+      labels: label_y,
+      datasets: [{
+        label: 'Gyro Raw - y direction',
+        data: data_y,
+        borderWidth: 1,
+        borderColor: 'rgb(243, 104, 0)'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          ticks: {
+              stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        title: {
+            display: true,
+            text: 'Gyrosensor y'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_gyro_y.options.animation = false;
+
+  //Gyrosensor z direction Chart
+  const ctx_z = document.getElementById('gyro_z');
+  var data_z = [];
+  var label_z = [];
+
+  var chart_gyro_z =new Chart(ctx_z, {
+    type: 'line',
+    data: {
+      labels: label_z,
+      datasets: [{
+        label: 'Gyro Raw - z direction',
+        data: data_z,
+        borderWidth: 1,
+        borderColor: 'rgb(243,214,0)'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          ticks: {
+              stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        title: {
+            display: true,
+            text: 'Gyrosensor z'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_gyro_z.options.animation = false;
+
+  function addData(chart, label, data) {
+      chart.data.labels.push(label);
+      chart.data.datasets.forEach((dataset) => {
+          dataset.data.push(data);
+      });
+      if (chart.data.labels.length > 100){
+        chart.data.labels.shift(); 
+        chart.data.datasets.forEach((dataset) => {
+          dataset.data.shift();
+        });
+      }
+      chart.update();
+  }
+
+  spectrogram = new Spectrogram("cvs_spectro"); 
+  spectrogram.initialize();
+
+  //draw y-axis 
+  const canvas_axis = document.getElementById("cvs_axis");
+  const ctx_axis = canvas_axis.getContext("2d");
+
+  ctx_axis.beginPath(); 
+  ctx_axis.moveTo(canvas_axis.width-10, 10);
+  ctx_axis.lineTo(canvas_axis.width-10, 778);
+  ctx_axis.lineWidth = 2;
+  ctx_axis.strokeStyle = '#000000';
+  ctx_axis.font = "20px Arial";
+  ctx_axis.stroke(); 
+
+  //draw y-axis markings 
+  ticks = 12;
+  height = (canvas_axis.height-20)
+  distance = height/(ticks-1);
+  ctx_axis.beginPath(); 
+  ctx_axis.moveTo(canvas_axis.width-10, height+9);
+  ctx_axis.lineTo(canvas_axis.width-15, height+9);
+  ctx_axis.fillText("22", canvas_axis.width-45, 18);
+  ctx_axis.stroke();
+  for (i = 1; i < ticks; i++){
+    ctx_axis.beginPath(); 
+    ctx_axis.moveTo(canvas_axis.width-10, height-distance*i+11);
+    ctx_axis.lineTo(canvas_axis.width-15, height-distance*i+11);
+    if ((2*(ticks-i-1)) < 10){
+      ctx_axis.fillText(2*(ticks-i-1), canvas_axis.width-38, distance*i+18);
+    } else {
+      ctx_axis.fillText(2*(ticks-i-1), canvas_axis.width-45, distance*i+18);
+    }
+    ctx_axis.stroke();
+  }
+  ctx_axis.save();
+  ctx_axis.rotate(3 * Math.PI / 2);
+  ctx_axis.textAlign = "left";
+  ctx_axis.fillText("f [kHz]", -height/2-40, 30);
+  ctx_axis.restore();
+
+  function Spectrogram(cvs){
+    const c = document.getElementById(cvs);
+    const ctx = c.getContext("2d");
+    const data_buffer = new Uint8Array(768*768*4);
+    const COLOR_MAP = [[0, 0, 0], 
+    [1523, 0, 11770], 
+    [4301, 0, 16645], 
+    [7899, 0, 20386], 
+    [12158, 0, 23540],
+    [16989, 0, 26319], 
+    [22330, 0, 28831], 
+    [28137, 0, 31141], 
+    [33291, 0, 32208], 
+    [35311, 0, 29605], 
+    [37221, 0, 26405], 
+    [39038, 0, 22657], 
+    [40773, 0, 18404], 
+    [42438, 0, 13680], 
+    [44040, 0, 8514], 
+    [45586, 0, 2931], 
+    [47081, 3046, 0], 
+    [48530, 9401, 0], 
+    [49937, 16117, 0], 
+    [51306, 23178, 0], 
+    [52638, 30572, 0], 
+    [53938, 38286, 0], 
+    [55208, 46310, 0], 
+    [56449, 54633, 0], 
+    [52077, 57663, 0], 
+    [45558, 58852, 0], 
+    [38717, 60017, 0], 
+    [31563, 61160, 0], 
+    [24107, 62283, 0], 
+    [16355, 63385, 0], 
+    [8317, 64469, 0], 
+    [0, 65535, 0]]
+
+    this.initialize = () => {
+        //initialize
+        for(var y = 0; y < 768; y++) {
+            for(var x = 0; x < 768; x++) {
+                var pos = (y * 768 + x) * 4; 
+                data_buffer[pos] = 0;           
+                data_buffer[pos+1] =  0;        
+                data_buffer[pos+2] =  0;          
+                data_buffer[pos+3] = 255;  
+            }
+        }
+        var image_data = ctx.createImageData(768, 768);
+        image_data.data.set(data_buffer);
+        ctx.putImageData(image_data, 0, 10);
+    }
+
+    this.newData = (message) => {
+        const data = message.split(",");
+        //shift elements by one left
+        var tmp_image = ctx.getImageData(1, 10, 767, 768);
+        ctx.putImageData(tmp_image, 0, 10);
+
+        var new_data_buffer = new Uint8Array(1024*4);
+        //populate array with new data 
+        var pos_counter = 0;
+        //map data 
+        for (i = 1024; i > 0; i--){
+            var pos = pos_counter * 4;
+            var temp_data = data[i]; 
+            if (temp_data < 0) temp_data = 0.00000000000001;
+            if (temp_data > 1) temp_data = 0.99999999999999;
+            const index = Math.floor(temp_data * (COLOR_MAP.length - 1));
+            try {
+              new_data_buffer[pos] = COLOR_MAP[index][0]; 
+              new_data_buffer[pos+1] = COLOR_MAP[index][1];
+              new_data_buffer[pos+2] = COLOR_MAP[index][2];
+              new_data_buffer[pos+3] = 255;
+            } catch (error){
+              new_data_buffer[pos] = 0; 
+              new_data_buffer[pos+1] = 0;
+              new_data_buffer[pos+2] = 0;
+              new_data_buffer[pos+3] = 255;
+              console.error(error);
+            }
+            pos_counter += 1;
+        }
+
+        const originalWidth = 1; // Ursprüngliche Breite 
+        const originalHeight = 1024; // Ursprüngliche Höhe 
+
+        // Erstelle ein HTMLCanvasElement mit der ursprünglichen Breite und Höhe.
+        const canvas = document.createElement('canvas');
+        canvas.width = originalWidth;
+        canvas.height = originalHeight;
+
+        // Hole den 2D-Kontext des Canvas.
+        const context = canvas.getContext('2d');
+
+        // Erstelle eine ImageData-Instanz aus dem UInt8Array und den Abmessungen.
+        const imageData = new ImageData(new Uint8ClampedArray(new_data_buffer.buffer), originalWidth, originalHeight);
+
+        // Zeichne die ImageData auf das Canvas.
+        context.putImageData(imageData, 0, 0);
+
+        // Jetzt haben wir das Bild auf dem Canvas. Du kannst die Größe des Bildes ändern (resizen).
+        const newWidth = 1; // Neue Breite
+        const newHeight = 768; // Neue Höhe
+
+        // Erstelle ein neues HTMLCanvasElement mit der neuen Breite und Höhe.
+        const resizedCanvas = document.createElement('canvas');
+        resizedCanvas.width = newWidth;
+        resizedCanvas.height = newHeight;
+
+        // Hole den 2D-Kontext des neuen Canvas.
+        const resizedContext = resizedCanvas.getContext('2d');
+
+        // Zeichne das ursprüngliche Bild auf das neue Canvas mit der neuen Größe (resizen).
+        resizedContext.drawImage(canvas, 0, 0, newWidth, newHeight);
+
+        var resized_img = resizedContext.getImageData(0, 0, 1, 768);
+        ctx.putImageData(resized_img, 767, 10);
+    }
+  }
+
+  //demonstration for raw data 
+  const canvas_raw_data = document.getElementById("cvs_raw");
+  const context_raw_data = canvas_raw_data.getContext("2d");
+
+  const img_cloud = new Image(); 
+  img_cloud.src = "img/cloud.png";
+  img_cloud.onload = function() {
+    context_raw_data.drawImage(img_cloud, 250, -50, 250, 250); 
+  }
+
+  const img_smartphone = new Image(); 
+  img_smartphone.src = "img/smartphone.png";
+  img_smartphone.onload = function() {
+    context_raw_data.drawImage(img_smartphone, -100, 250, 400, 400); 
+  }
+
+  const img_wifi = new Image(); 
+  img_wifi.src = "img/wifi.png";
+  img_wifi.onload = function() {
+    context_raw_data.drawImage(img_wifi, 200, 290, 40, 40); 
+    context_raw_data.save();
+    context_raw_data.rotate(-Math.PI / 2);
+    context_raw_data.drawImage(img_wifi, -330, 435, 40, 40); 
+    context_raw_data.restore();
+  }
+
+  const img_microphone = new Image(); 
+  img_microphone.src = "img/micro.png";
+  img_microphone.onload = function() {
+    context_raw_data.drawImage(img_microphone, 70, 350, 60, 60); 
+  }
+
+  const img_monitor = new Image(); 
+  img_monitor.src = "img/monitor.png";
+  img_monitor.onload = function() {
+    context_raw_data.drawImage(img_monitor, 490, 290, 300, 300); 
+  }
+
+  mqttpseudodata = new Array(); 
+
+  setInterval(() => {
+    if (mqttpseudodata.length >= 13){
+      mqttpseudodata.pop(); 
+    }
+    context_raw_data.save();
+    context_raw_data.rotate(-Math.PI / 4);
+    context_raw_data.textAlign = "left";
+    context_raw_data.font = "20px arial";
+    new_num = Math.random() + 0.5;
+    mqttpseudodata.unshift(String(Math.floor(new_num))); 
+    context_raw_data.fillStyle = "white";
+    context_raw_data.fillRect(-140, 295, 220, -20);
+    to_print = "";
+    for (i = 0; i < mqttpseudodata.length; i++){
+      to_print = to_print + " " + mqttpseudodata[i]; 
+    }
+    context_raw_data.fillStyle = "black";
+    context_raw_data.fillText(to_print, -140, 290);
+    context_raw_data.restore();
+    //
+    context_raw_data.save();
+    context_raw_data.rotate(Math.PI / 4);
+    context_raw_data.textAlign = "left";
+    context_raw_data.font = "20px arial";
+    context_raw_data.fillStyle = "white";
+    context_raw_data.fillRect(445, -240, 220, -20);
+    to_print = "";
+    for (i = 0; i < mqttpseudodata.length; i++){
+      to_print = to_print + " " + mqttpseudodata[i]; 
+    }
+    context_raw_data.fillStyle = "black";
+    context_raw_data.fillText(to_print, 445, -240);
+    context_raw_data.restore();
+  }, 60);
+
+  arrdata = new Array();  
+
+  setInterval(() => {
+    if (arrdata.length >= 40){
+      arrdata.pop(); 
+    }
+    new_num = Math.random(); 
+    arrdata.unshift(new_num); 
+    context_raw_data.fillStyle = "white";
+    context_raw_data.fillRect(40, 430, 120, 140);
+    context_raw_data.fillRect(510, 330, 240, 145);
+    row_data = ["", "", "", "", "", "", "", ""]; 
+    row_data_monitor = ["", "", "", "", "", ""]; 
+    for (i = 0; i < arrdata.length; i++){
+      if (i <= 4){
+        row_data[0] = row_data[0] + " " + arrdata[i].toFixed(2); 
+        row_data_monitor[0] = row_data_monitor[0] + " " + arrdata[i].toFixed(2);
+      } else if (i <= 9){
+        row_data[1] = row_data[1] + " " + arrdata[i].toFixed(2);
+        row_data_monitor[1] = row_data_monitor[1] + " " + arrdata[i].toFixed(2);
+      } else if (i <= 14){
+        row_data[2] = row_data[2] + " " + arrdata[i].toFixed(2);
+        row_data_monitor[2] = row_data_monitor[2] + " " + arrdata[i].toFixed(2);
+      } else if (i <= 19){
+        row_data[3] = row_data[3] + " " + arrdata[i].toFixed(2);
+        row_data_monitor[3] = row_data_monitor[3] + " " + arrdata[i].toFixed(2);
+      } else if (i <= 24){
+        row_data[4] = row_data[4] + " " + arrdata[i].toFixed(2);
+        row_data_monitor[4] = row_data_monitor[4] + " " + arrdata[i].toFixed(2);
+      } else if (i <= 29){
+        row_data[5] = row_data[5] + " " + arrdata[i].toFixed(2);
+        row_data_monitor[5] = row_data_monitor[5] + " " + arrdata[i].toFixed(2);
+      } else if (i <= 34){
+        row_data[6] = row_data[6] + " " + arrdata[i].toFixed(2);
+      } else if (i <= 39){
+        row_data[7] = row_data[7] + " " + arrdata[i].toFixed(2);
+      }
+    }
+    context_raw_data.fillStyle = "black";
+    for (i = 0; i < row_data.length; i++){
+      context_raw_data.font = "10px arial";
+      context_raw_data.fillText(row_data[i], 41, 450+i*10);
+    }
+    for (i = 0; i < row_data_monitor.length; i++){
+      context_raw_data.font = "20px arial";
+      context_raw_data.fillText(row_data_monitor[i], 525, 355+i*20);
+    }
+  }, 100);
+
+  
+  //Example for signal processing 
+  //demonstration for raw data 
+  /*const canvas_micro = document.getElementById("cvs_micro");
+  const context_micro = canvas_micro.getContext("2d");
+
+  const img_micro = new Image(); 
+  img_micro.src = "img/micro.png";
+  img_micro.onload = function() {
+    context_micro.drawImage(img_micro, 60, 120, 100, 100); 
+  }*/
+
+  //Audio Analog example chart 
+  const ctx_audio_analog = document.getElementById('audio_analog');
+  var data_audio_analog = new Array();
+  var label_audio_analog = new Array();
+  const num_samples = 2048; 
+  const sample_time = 2; 
+  var dt = sample_time/num_samples;
+
+  const amp = Math.floor(Math.random()*10)+1;
+  const freq1 = Math.floor(Math.random()*3)+1;
+  const freq2 = Math.floor(Math.random()*3)+1;
+  const freq3 = Math.floor(Math.random()*3)+1;
+
+  for (i = 0; i < num_samples; i++){
+    //sin(2*pi*f*t) --> sin(2*pi*f*i*dt)
+    var t = i*dt; 
+    data_audio_analog.push(amp*Math.sin(2*Math.PI*freq1*t)+amp*Math.sin(2*Math.PI*freq2*t)+amp*Math.sin(2*Math.PI*freq3*t));
+    label_audio_analog.push(t.toFixed(2));
+  }
+
+  var chart_audio_analog =new Chart(ctx_audio_analog, {
+    type: 'line',
+    data: {
+      labels: label_audio_analog,
+      datasets: [{
+        label: 'Wert Analogsignal',
+        data: data_audio_analog,
+        borderWidth: 1,
+        borderColor: 'rgb(0, 0, 234)',
+        pointStyle: false,
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          ticks: {
+            stepSize: 1
+          }
+        },
+        x: {
+          ticks: {
+            maxTicksLimit: 14,
+            suggestedMin: 0, // Hier kannst du den Startwert für die x-Achse festlegen
+            suggestedMax: num_samples // Hier kannst du den Endwert für die x-Achse festlegen
+          }
+        },
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Analog'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_audio_analog.options.animation = false;
+
+
+  //Audio Digital example chart 
+  const ctx_audio_digital = document.getElementById('audio_digital');
+  var data_audio_digital = new Array();
+  var label_audio_digital = new Array();
+  const num_samples_digital = 128; 
+  dt = sample_time/num_samples_digital;
+
+  for (i = 0; i < num_samples_digital; i++){
+    //sin(2*pi*f*t) --> sin(2*pi*f*i*dt)
+    var t = i*dt; 
+    sampled_signal = Math.floor(amp*Math.sin(2*Math.PI*freq1*t)+amp*Math.sin(2*Math.PI*freq2*t)+amp*Math.sin(2*Math.PI*freq3*t)); 
+    data_audio_digital.push({x: t.toFixed(2), y: sampled_signal});
+    var t1 = t+dt;
+    data_audio_digital.push({x: t1.toFixed(2), y: sampled_signal});
+    label_audio_digital.push(t.toFixed(2));
+  } 
+
+  var chart_audio_digital =new Chart(ctx_audio_digital, {
+    type: 'line',
+    data: {
+      labels: label_audio_digital,
+      datasets: [{
+        label: 'Wert Digitalsignal',
+        data: data_audio_digital,
+        borderWidth: 1,
+        borderColor: 'rgb(0, 0, 234)',
+        pointStyle: false,
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          ticks: {
+            stepSize: 1
+          }
+        },
+        x: {
+          ticks: {
+            maxTicksLimit: 14,
+            suggestedMin: 0, // Hier kannst du den Startwert für die x-Achse festlegen
+            suggestedMax: num_samples_digital // Hier kannst du den Endwert für die x-Achse festlegen
+          }
+        },
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Digital'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_audio_analog.options.animation = false;
+
+</script>
+</body>
+</html>

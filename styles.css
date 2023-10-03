@@ -1,0 +1,89 @@
+  body {
+    font-family: "Lato", sans-serif;
+  }
+  
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #0068B4;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #d3d3d3;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .submitButton {
+    background-color: #0068B4; 
+    border: none; 
+    color: white; 
+    padding: 12px 28px; 
+    text-align: center; 
+    text-decoration: none;  
+    display: inline-block; 
+    font-size: 14px;
+    transition-duration: 0.4s;
+  }
+
+  .submitButton:hover {
+    background-color: #0085e4; 
+  }
+
+  .submitButton:active {
+    background-color: #54baff; 
+  }
+
+  .button {
+    background-color: #0068B4; /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .paragraphBasics{
+    font-size: 20px; 
+    width: 55vw; 
+    height: 60vh; 
+    color:white; 
+    background-color: #0068B4;
+    transition: background-color 0.3s ease;
+  }
+
+  .paragraphBasics:hover {background-color: #0085e4;}
+
+  .button_next {border-radius: 12px;}
+  .button_next:hover {background-color: #0085e4;}
+  .button_next:active {background-color: #54baff;}
