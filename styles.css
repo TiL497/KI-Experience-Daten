@@ -62,7 +62,7 @@
   }
 
   .button {
-    background-color: #0068B4; /* Green */
+    background-color: #0068B4; 
     border: none;
     color: white;
     padding: 20px;
@@ -71,19 +71,32 @@
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
   }
 
-  .paragraphBasics{
+  .paragraphNavigation{
     font-size: 20px; 
     width: 55vw; 
     height: 60vh; 
     color:white; 
     background-color: #0068B4;
     transition: background-color 0.3s ease;
+    border-radius: 6px;
   }
 
-  .paragraphBasics:hover {background-color: #0085e4;}
+  .paragraphNavigation:hover {background-color: #0085e4;}
 
   .button_next {border-radius: 12px;}
   .button_next:hover {background-color: #0085e4;}
   .button_next:active {background-color: #54baff;}
+
+  .button_back {font-size: 35px; border-radius: 12px}
+  .button_back:hover {background-color: #0085e4;}
+  .button_back:active {background-color: #54baff;}
+
+  .paragraph{
+    font-size: 30px; 
+    color:white; 
+    background-color: #0068B4;
+    border-radius: 6px;
+  }

@@ -13,48 +13,53 @@
   <div style="display:flex">
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="#" onClick="switchSite(0)">Grundlagen</a>
-      <a href="#" onClick="switchSite(1)">Gyrosensor</a>
-      <a href="#" onClick="switchSite(2)">Audio Spektrogramm</a>
-      <a href="#" onClick="switchSite(3)" style="margin-top: 70vh;">Einstellungen</a>
+      <a href="#" onClick="switchSite(0)">Hauptseite</a>
+      <a href="#" onClick="switchSite(1)">Einstellungen</a>
     </div>
 
-    <span style="margin-top: 0.5%; margin-left: 1%;font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
+    <span style="margin-top: 0.5%; margin-left: 1%; font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
     <h2 id="heading" style="margin-top: 1%; margin-left: 2%; font-family: Arial; width: 78%">Daten - Exponat Prototyp</h2>
     <img src="img/logo.png" style="width: 20%;">
     <div style="width: 2%"></div>
   </div>
 
-  <div style="display:block" id="divData">
+  <div style="display:block" id="divMain">
     <div style="margin-top: 2%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
-      <div style="display:flex; width: 95%; height: 95%" id="divDataBasics">
-        <div style="display:flex; flex-direction: column; width:10%">
-          <div style="height:45%; width:100%">
+      <div style="display:flex; flex-direction: row; width: 95%; height: 95%;">
+        <canvas width="820" height="650" id="cvs_raw"></canvas>
+        <div style="width: 40%; display:flex; flex-direction: column;">
+          <div style="height: 50%; margin-left: 25%;">
+            <h1 style="margin-left: 7.5%;">App-Download</h1>
+            <img src="img/qr.png"> 
           </div>
-          <div style="height:10%; width:100%;">
-            <button style="margin-left: 65%; margin-top: 5%;" class="button button_next" onClick="nextPage(0)">&#60;</button>
-          </div>
-          <div style="height:45%; width:100%">
+          <div style="height: 50%;">
+            <button style="margin-left: 26.5%; margin-top: 5%; font-size: 25px;" class="button button_next" onClick="switchSite(2)">Hier klicken zum Start</button>
           </div>
         </div>
-        <div style="border-color: #0068B4; border-style: inset; border-width:5px; width:80%">
-          <div style="display:block;" id="divDataWhat">
-            <h2 style="margin-left: 1%; margin-top: 3%;">Navigation</h2>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:none" id="divNavigation">
+    <div style="margin-top: 2%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
+      <div style="display:flex; margin-top: 4%; width: 95%; height: 95%">
+        <div style="display:flex; flex-direction: column; width:10%">
+        </div>
+          <div style="width:80%">
             <div style="display:flex; flex-direction:row; width:99%; height:80%; margin-top: 2%;">
-              <div class="paragraphBasics" style="margin-left: 1%">
-                <h1 style="margin-left: 5%;">Rohdaten</h1>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Was sind Rohdaten?</p>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Welche Formate können sie annehmen?</p>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Was ist der Unterschied zwischen einem analogen und einem digitalen Signal?</p>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie entsteht ein digitales Signal?</p>
+              <div class="paragraphNavigation" style="margin-left: 1%" onClick="switchSite(3)">
+                <h1 style="margin-left: 5%;">Grundlagen</h1>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Was sind Daten?</p>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Welche Formate können Daten annehmen?</p>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie werden Daten digitalisiert?</p>
               </div>
-              <div class="paragraphBasics" style="margin-left: 0.5%;">
+              <div class="paragraphNavigation" style="margin-left: 0.5%;" onClick="switchSite(4)">
                 <h1 style="margin-left: 5%;">Verarbeitung</h1>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie erzeuge ich nützliche Informationen aus meinen Rohdaten?</p>
+                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie erzeuge ich nützliche Informationen aus meinen Daten?</p>
                 <p style="margin-left: 5%; margin-right: 5%">&#x95; Welche Werkzeuge kann ich verwenden? (Beispiele mit Smartphone-Sensoren)</p>
                 <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie kann ich meine Daten darstellen? (Beispiele mit Smartphone-Sensoren)</p>
               </div>
-              <div class="paragraphBasics" style="margin-left: 0.5%;">
+              <div class="paragraphNavigation" style="margin-left: 0.5%;" onClick="switchSite(5)">
                 <h1 style="margin-left: 5%;">Interpretation</h1>
                 <p style="margin-left: 5%; margin-right: 5%">&#x95; Welchen Nutzen haben meine verarbeiteten Daten?</p>
                 <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie kann ich meine Daten interpetieren?</p>
@@ -62,8 +67,73 @@
               </div>
             </div>
           </div>
-          <div style="display:none;" id="divDataAnalogDigital">
-            <h2 style="margin-left: 1%; margin-top: 3%;">Platzhalter</h2>
+        <div style="display:flex; flex-direction: column; width:10%">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:none" id="divRaw">
+    <div style="margin-top: -1.5%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
+      <div style="display:flex; width: 95%; height: 95%">
+        <div style="display:flex; flex-direction: column; width:10%">
+          <div style="height:83%; width:100%">
+          </div>
+          <div style="height:10%; width:100%;">
+            <button style="margin-left: 60%; margin-top: 5%;" class="button button_next" onClick="nextPage(0)">&#60;</button>
+          </div>
+          <div style="height:45%; width:100%">
+          </div>
+        </div>
+        <div style="width:80%; margin-left: -0.5%;">
+          <div style="display:block;" id="divBasicRaw">
+            <h2 style="margin-left: 1%; margin-top: 3%;">Was sind Daten?</h2>
+            <div style="display:flex; flex-direction: column;">
+              <div style="width: 100%; height: 40vh;" class="paragraph">
+                <p style="margin-left: 1%; margin-right: 1%;">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+              </div>
+              <div style="display:flex; flex-direction: row;">
+                <div style="width: 50%; height: 40vh; margin-top: 1%;" class="paragraph">
+                  <p style="margin-left: 2%; margin-right: 1%;">Test</p>
+                </div>
+                <div style="width: 50%; height: 40vh; margin-top: 1%; margin-left: 1%;" class="paragraph">
+                  <p style="margin-left: 2%; margin-right: 1%;">Test</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display:none;" id="divBasicFormat">
+            <h2 style="margin-left: 1%; margin-top: 3%;">Welche Formate können Daten annehmen?</h2>
+            <div style="display:flex; flex-direction: column;">
+              <div style="display:flex; flex-direction: row;">
+                <div style="width: 33.3%; height: 40vh;" class="paragraph">
+                  <p style="margin-left: 2%; margin-right: 2%;">Sensorwert (Digital oder Analog)</p>
+                  <p style="margin-left: 2%; margin-right: 2%; font-size: 25px">&#x95; Sensorwert als Datengrundlage</p>
+                  <p style="margin-left: 2%; margin-right: 2%; font-size: 25px">&#x95; Mensch oder physikalisches Gerät agiert als Sensor</p>
+                  <p style="margin-left: 2%; margin-right: 2%; font-size: 25px">&#x95; Sensor erfasst (physikalische) Eigenschaften aus der Umgebung als Messwert</p>
+                </div>
+                <div style="width: 33.3%; height: 40vh;margin-left: 1%;" class="paragraph">
+                  <p style="margin-left: 2%;">Zeitreihe</p>
+                </div>
+                <div style="width: 33.3%; height: 40vh;margin-left: 1%;" class="paragraph">
+                  <p style="margin-left: 2%;">Dokument</p>
+                </div>
+              </div>
+              <div style="display:flex; flex-direction: row;">
+                <div style="width: 33.3%; height: 40vh; margin-top: 1%;" class="paragraph">
+                  <p style="margin-left: 2%;">Bild</p>
+                </div>
+                <div style="width: 33.3%; height: 40vh; margin-top: 1%; margin-left: 1%;" class="paragraph">
+                  <p style="margin-left: 2%;">Audio</p>
+                </div>
+                <div style="width: 33.3%; height: 40vh; margin-top: 1%; margin-left: 1%;" class="paragraph">
+                  <p style="margin-left: 2%;">Video</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display:none;" id="divBasicAD">
+            <h2 style="margin-left: 1%; margin-top: 3%;">Wie werden Daten digitalisiert?</h2>
             <div style="display:flex; flex-direction: row;">
               <div style="height:50%; width:40%; margin-left: 2%;">
                 <canvas id="audio_analog"></canvas>
@@ -73,9 +143,103 @@
               </div>
             </div>
           </div>
-          <div style="display:none; margin-left:5%;" id="divDataTransfer">
-            <h2 style="margin-top: 3%;">Platzhalter</h2>
-            <canvas width="820" height="650" id="cvs_raw"></canvas>
+          <div style="display:none; margin-left:5%;" id="divBasicBack">
+            <button style="margin-left: 35%; margin-top: 28%;" class="button button_back" onClick="switchSite(2)">Zurück zur Übersicht</button>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction: column; width:10%">
+          <div style="height:83%; width:100%">
+          </div>
+          <div style="height:10%; width:100%;">
+            <button style="margin-left: 5%; margin-top: 5%;" class="button button_next" onClick="nextPage(1)">&#62;</button>
+          </div>
+          <div style="height:45%; width:100%">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:none" id="divProcess">
+    <div style="margin-top: -1.5%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
+      <div style="display:flex; width: 95%; height: 95%">
+        <div style="display:flex; flex-direction: column; width:10%">
+          <div style="height:45%; width:100%">
+          </div>
+          <div style="height:10%; width:100%;">
+            <button style="margin-left: 65%; margin-top: 5%;" class="button button_next" onClick="nextPage(0)">&#60;</button>
+          </div>
+          <div style="height:45%; width:100%">
+          </div>
+        </div>
+        <div style="width:80%">
+          <div style="display:block" id="divProcessGyro">
+            <h2 style="margin-left: 2%; margin-top: 3%;">Gyrosensor</h2>
+            <div style="margin-top: 1%; margin-left: 2%; display:flex; flex-direction: column;">
+              <div style="display: flex;">
+                <div style="height:30vh; width:60vw">
+                  <canvas id="gyro_x"></canvas>
+                </div>
+                <div style="height:30vh; width:60vw">
+                  <canvas id="gyro_y"></canvas>
+                </div>
+              </div>
+              <div style="margin-top: 5%; display:flex">
+                <div style="height:30vh; width:60vw">
+                  <canvas id="gyro_z"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display:none" id="divProcessAccel">
+            <h2 style="margin-left: 2%; margin-top: 3%;">Beschleunigungssensor</h2>
+            <div style="margin-top: 1%; margin-left: 2%; display:flex; flex-direction: column;">
+              <div style="display: flex;">
+                <div style="height:30vh; width:60vw">
+                  <canvas id="accel_x"></canvas>
+                </div>
+                <div style="height:30vh; width:60vw">
+                  <canvas id="accel_y"></canvas>
+                </div>
+              </div>
+              <div style="margin-top: 5%; display:flex">
+                <div style="height:30vh; width:60vw">
+                  <canvas id="accel_z"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display:none" id="divProcessMagnet">
+            <h2 style="margin-left: 2%; margin-top: 3%;">Magnetometer</h2>
+            <div style="margin-top: 1%; margin-left: 2%; display:flex; flex-direction: column;">
+              <div style="display: flex;">
+                <div style="height:30vh; width:60vw">
+                  <canvas id="magnet_x"></canvas>
+                </div>
+                <div style="height:30vh; width:60vw">
+                  <canvas id="magnet_y"></canvas>
+                </div>
+              </div>
+              <div style="margin-top: 5%; display:flex">
+                <div style="height:30vh; width:60vw">
+                  <canvas id="magnet_z"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display:none" id="divProcessAudio">
+            <h2 style="margin-left: 2%; margin-top: 3%;">Audiosensor</h2>
+            <div style="margin-top: 2%; display:flex;">
+              <div style="margin-left:2%">
+                <canvas width="100" height="788" id="cvs_axis"></canvas>
+              </div>
+              <div>
+                <canvas width="768" height="788" id="cvs_spectro"></canvas>
+              </div>
+            </div>
+          </div>
+          <div style="display:none; margin-left:5%;" id="divProcessBack">
+            <button style="margin-left: 35%; margin-top: 28%;" class="button button_back" onClick="switchSite(2)">Zurück zur Übersicht</button>
           </div>
         </div>
         <div style="display:flex; flex-direction: column; width:10%">
@@ -91,31 +255,32 @@
     </div>
   </div>
 
-  <div style="display:none" id="divGyro">
-    <div style="margin-top: 2%; margin-left: 5%; display:flex; flex-direction: column; height: 82vh;">
-      <div style="display: flex;">
-        <div style="height:35vh; width:80vw">
-          <canvas id="gyro_x"></canvas>
+  <div style="display:none" id="divInterpret">
+    <div style="margin-top: -1.5%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
+      <div style="display:flex; width: 95%; height: 95%">
+        <div style="display:flex; flex-direction: column; width:10%">
+          <div style="height:45%; width:100%">
+          </div>
+          <div style="height:10%; width:100%;">
+            <button style="margin-left: 65%; margin-top: 5%;" class="button button_next" onClick="nextPage(0)">&#60;</button>
+          </div>
+          <div style="height:45%; width:100%">
+          </div>
         </div>
-        <div style="height:35vh; width:80vw">
-          <canvas id="gyro_y"></canvas>
+        <div style="width:80%">
+          <div style="display:none; margin-left:5%;" id="divInterpretBack">
+            <button style="margin-left: 35%; margin-top: 28%;" class="button button_back" onClick="switchSite(2)">Zurück zur Übersicht</button>
+          </div>
         </div>
-      </div>
-      <div style="margin-top: 5%; display:flex">
-        <div style="height:35vh; width:80vw">
-          <canvas id="gyro_z"></canvas>
+        <div style="display:flex; flex-direction: column; width:10%">
+          <div style="height:45%; width:100%">
+          </div>
+          <div style="height:10%; width:100%;">
+            <button style="margin-left: 5%; margin-top: 5%;" class="button button_next" onClick="nextPage(1)">&#62;</button>
+          </div>
+          <div style="height:45%; width:100%">
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-  
-  <div style="display:none" id="divAudio">
-    <div style="margin-top: 2%;display:flex; height: 82vh;">
-      <div style="margin-left:2%">
-        <canvas width="100" height="788" id="cvs_axis"></canvas>
-      </div>
-      <div>
-        <canvas width="768" height="788" id="cvs_spectro"></canvas>
       </div>
     </div>
   </div>
@@ -164,11 +329,15 @@
 
 <script>
 
-  sites = ["divData", "divGyro", "divAudio", "divSettings"];
-  headings = ["Grundlagen", "Gyrosensor - Dashboard", "Audio Spektrogramm - Dashboard", "Einstellungen"];
-  basic_sites = ["divDataWhat", "divDataAnalogDigital", "divDataTransfer"]; 
+  sites = ["divMain", "divSettings", "divNavigation", "divRaw", "divProcess", "divInterpret"];
   active = 0; 
+  headings = ["Daten - Exponat Prototyp", "Einstellungen"];
+  basic_sites = ["divBasicRaw", "divBasicFormat", "divBasicAD", "divBasicBack"]; 
   basic_site_idx = 0; 
+  process_sites = ["divProcessGyro", "divProcessAccel", "divProcessMagnet", "divProcessAudio", "divProcessBack"]; 
+  process_site_idx = 0;
+  interpret_sites = ["divInterpretBack"]; 
+  interpret_site_idx = 0;
 
   displayPage(); 
 
@@ -188,25 +357,59 @@
       document.getElementById(sites[i]).style.display = "none";
     }
     document.getElementById(sites[id]).style.display = "block"; 
-    document.getElementById("heading").innerHTML = headings[id]; 
+    if (sites[id] == "divSettings" || sites[id] == "divMain"){
+      document.getElementById("heading").innerHTML = headings[id]; 
+    } 
     active = id; 
+    basic_site_idx = 0;
+    process_site_idx = 0;
+    interpret_site_idx = 0;
+    displayPage(); 
     closeNav(); 
   }
 
   function nextPage(dir){
-    if ((dir == 0) && (basic_site_idx > 0)){
-      basic_site_idx -= 1; 
-    } else if ((dir == 1) && (basic_site_idx < (basic_sites.length - 1))){
-      basic_site_idx += 1; 
+    if (sites[active] == "divRaw"){
+      if ((dir == 0) && (basic_site_idx > 0)){
+        basic_site_idx -= 1; 
+      } else if ((dir == 1) && (basic_site_idx < (basic_sites.length - 1))){
+        basic_site_idx += 1; 
+      } 
+      displayPage(); 
+    } else if (sites[active] == "divProcess"){
+      if ((dir == 0) && (process_site_idx > 0)){
+        process_site_idx -= 1; 
+      } else if ((dir == 1) && (process_site_idx < (process_sites.length - 1))){
+        process_site_idx += 1; 
+      } 
+      displayPage(); 
+    } else if (sites[active] == "divInterpret"){
+      if ((dir == 0) && (interpret_site_idx > 0)){
+        interpret_site_idx -= 1; 
+      } else if ((dir == 1) && (interpret_site_idx < (interpret_sites.length - 1))){
+        interpret_site_idx += 1; 
+      } 
+      displayPage(); 
     }
-    displayPage(); 
   }
 
   function displayPage(){
-    for (i = 0; i < basic_sites.length; i++){
-      document.getElementById(basic_sites[i]).style.display = "none";
+    if (sites[active] == "divRaw"){
+      for (i = 0; i < basic_sites.length; i++){
+        document.getElementById(basic_sites[i]).style.display = "none";
+      }
+      document.getElementById(basic_sites[basic_site_idx]).style.display = "block"; 
+    } else if (sites[active] == "divProcess"){
+      for (i = 0; i < process_sites.length; i++){
+        document.getElementById(process_sites[i]).style.display = "none";
+      }
+      document.getElementById(process_sites[process_site_idx]).style.display = "block"; 
+    } else if (sites[active] == "divInterpret"){
+      for (i = 0; i < interpret_sites.length; i++){
+        document.getElementById(interpret_sites[i]).style.display = "none";
+      }
+      document.getElementById(interpret_sites[interpret_site_idx]).style.display = "block"; 
     }
-    document.getElementById(basic_sites[basic_site_idx]).style.display = "block"; 
   }
 
   //Create MQTT Client ID
@@ -234,9 +437,17 @@
     },
   }
 
-  var x_counter = 0
-  var y_counter = 0
-  var z_counter = 0
+  var x_gyro_counter = 0;
+  var y_gyro_counter = 0;
+  var z_gyro_counter = 0;
+
+  var x_accel_counter = 0;
+  var y_accel_counter = 0;
+  var z_accel_counter = 0;
+
+  var x_magnet_counter = 0;
+  var y_magnet_counter = 0;
+  var z_magnet_counter = 0;
 
   //Create Connection and Subscribe to all subtopics from factory
   console.log('Connecting mqtt client');
@@ -275,26 +486,48 @@
     //subscripe to topic 
     client.subscribe('gyro/#'); 
     client.subscribe('audio/#');
+    client.subscribe('accel/#');
+    client.subscribe('magnet/#');
 
     //fetch data 
     client.on('message', (topic, message) => {
       topic_target = topic.toString();
       //split topic and send data to viz 
       if (topic_target == "gyro/x") {
-        addData(chart_gyro_x, x_counter, parseFloat(message));
-        x_counter += 1;  
+        addData(chart_gyro_x, x_gyro_counter, parseFloat(message));
+        x_gyro_counter += 1;  
       } else if (topic_target == "gyro/y"){
-        addData(chart_gyro_y, y_counter, parseFloat(message)); 
-        y_counter += 1; 
+        addData(chart_gyro_y, y_gyro_counter, parseFloat(message)); 
+        y_gyro_counter += 1; 
       } else if (topic_target == "gyro/z"){
-        addData(chart_gyro_z, z_counter, parseFloat(message)); 
-        z_counter += 1; 
+        addData(chart_gyro_z, z_gyro_counter, parseFloat(message)); 
+        z_gyro_counter += 1; 
+      } else if (topic_target == "accel/x"){
+        addData(chart_accel_x, x_accel_counter, parseFloat(message)); 
+        x_accel_counter += 1; 
+      } else if (topic_target == "accel/y"){
+        addData(chart_accel_y, y_accel_counter, parseFloat(message)); 
+        y_accel_counter += 1; 
+      } else if (topic_target == "accel/z"){
+        addData(chart_accel_z, z_accel_counter, parseFloat(message)); 
+        z_accel_counter += 1; 
+      } else if (topic_target == "magnet/x"){
+        addData(chart_magnet_x, x_magnet_counter, parseFloat(message)); 
+        x_magnet_counter += 1; 
+      } else if (topic_target == "magnet/y"){
+        addData(chart_magnet_y, y_magnet_counter, parseFloat(message)); 
+        y_magnet_counter += 1; 
+      } else if (topic_target == "magnet/z"){
+        addData(chart_magnet_z, z_magnet_counter, parseFloat(message)); 
+        z_magnet_counter += 1; 
       } else if (topic_target == "audio"){
         spectrogram.newData(message.toString());
       }
     })
 
   }
+
+  Chart.defaults.font.size = 18;
 
   //Gyrosensor x direction Chart
   const ctx_x = document.getElementById('gyro_x');
@@ -315,6 +548,10 @@
     options: {
       scales: {
         y: {
+          title: {
+            display: true, 
+            text: "ω [rad/s]"
+          },
           ticks: {
               stepSize: 1
           }
@@ -323,7 +560,7 @@
       plugins: {
         title: {
           display: true,
-          text: 'Gyrosensor x'
+          text: 'Winkelgeschwindigkeit in x-Richtung'
         },
         legend: {
             display: false
@@ -353,6 +590,10 @@
     options: {
       scales: {
         y: {
+          title: {
+            display: true, 
+            text: "ω [rad/s]"
+          },
           ticks: {
               stepSize: 1
           }
@@ -361,7 +602,7 @@
       plugins: {
         title: {
             display: true,
-            text: 'Gyrosensor y'
+            text: 'Winkelgeschwindigkeit in y-Richtung'
         },
         legend: {
             display: false
@@ -391,6 +632,10 @@
     options: {
       scales: {
         y: {
+          title: {
+            display: true, 
+            text: "ω [rad/s]"
+          },
           ticks: {
               stepSize: 1
           }
@@ -399,7 +644,7 @@
       plugins: {
         title: {
             display: true,
-            text: 'Gyrosensor z'
+            text: 'Winkelgeschwindigkeit in z-Richtung'
         },
         legend: {
             display: false
@@ -409,6 +654,258 @@
   });
 
   chart_gyro_z.options.animation = false;
+
+  //Acceleration x direction Chart
+  const ctx_accel_x = document.getElementById('accel_x');
+  var data_accel_x = [];
+  var label_accel_x = [];
+
+  var chart_accel_x =new Chart(ctx_accel_x, {
+    type: 'line',
+    data: {
+      labels: label_accel_x,
+      datasets: [{
+        label: 'Beschleunigung - Richtung x-Achse',
+        data: data_accel_x,
+        borderWidth: 1,
+        borderColor: 'rgb(243,214,0)'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          title: {
+            display: true, 
+            text: "a [m/s²]"
+          },
+          ticks: {
+              stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        title: {
+            display: true,
+            text: 'Beschleunigung in x-Richtung'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_accel_x.options.animation = false;
+
+  //Acceleration y direction Chart
+  const ctx_accel_y = document.getElementById('accel_y');
+  var data_accel_y = [];
+  var label_accel_y = [];
+
+  var chart_accel_y =new Chart(ctx_accel_y, {
+    type: 'line',
+    data: {
+      labels: label_accel_y,
+      datasets: [{
+        label: 'Beschleunigung - Richtung y-Achse',
+        data: data_accel_y,
+        borderWidth: 1,
+        borderColor: 'rgb(243,214,0)'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          title: {
+            display: true, 
+            text: "a [m/s²]"
+          },
+          ticks: {
+              stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        title: {
+            display: true,
+            text: 'Beschleunigung in y-Richtung'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_accel_y.options.animation = false;
+
+  //Acceleration z direction Chart
+  const ctx_accel_z = document.getElementById('accel_z');
+  var data_accel_z = [];
+  var label_accel_z = [];
+
+  var chart_accel_z =new Chart(ctx_accel_z, {
+    type: 'line',
+    data: {
+      labels: label_accel_z,
+      datasets: [{
+        label: 'Beschleunigung - Richtung z-Achse',
+        data: data_accel_z,
+        borderWidth: 1,
+        borderColor: 'rgb(243,214,0)'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          title: {
+            display: true, 
+            text: "a [m/s²]"
+          },
+          ticks: {
+              stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        title: {
+            display: true,
+            text: 'Beschleunigung in z-Richtung'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_accel_z.options.animation = false;
+
+  //Magnetometer x direction Chart
+  const ctx_magnet_x = document.getElementById('magnet_x');
+  var data_magnet_x = [];
+  var label_magnet_x = [];
+
+  var chart_magnet_x =new Chart(ctx_magnet_x, {
+    type: 'line',
+    data: {
+      labels: label_magnet_x,
+      datasets: [{
+        label: 'Magnetische Flussdichte - Richtung x-Achse',
+        data: data_magnet_x,
+        borderWidth: 1,
+        borderColor: 'rgb(243,214,0)'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          title: {
+            display: true, 
+            text: "B [µT]"
+          },
+          ticks: {
+              stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        title: {
+            display: true,
+            text: 'Magnetische Flussdichte in x-Richtung'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_magnet_x.options.animation = false;
+
+  //Magnetometer y direction Chart
+  const ctx_magnet_y = document.getElementById('magnet_y');
+  var data_magnet_y = [];
+  var label_magnet_y = [];
+
+  var chart_magnet_y =new Chart(ctx_magnet_y, {
+    type: 'line',
+    data: {
+      labels: label_magnet_y,
+      datasets: [{
+        label: 'Magnetische Flussdichte - Richtung y-Achse',
+        data: data_magnet_y,
+        borderWidth: 1,
+        borderColor: 'rgb(243,214,0)'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          title: {
+            display: true, 
+            text: "B [µT]"
+          },
+          ticks: {
+              stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        title: {
+            display: true,
+            text: 'Magnetische Flussdichte in y-Richtung'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_magnet_y.options.animation = false;
+
+  //Magnetometer y direction Chart
+  const ctx_magnet_z = document.getElementById('magnet_z');
+  var data_magnet_z = [];
+  var label_magnet_z = [];
+
+  var chart_magnet_z =new Chart(ctx_magnet_z, {
+    type: 'line',
+    data: {
+      labels: label_magnet_z,
+      datasets: [{
+        label: 'Magnetische Flussdichte - Richtung z-Achse',
+        data: data_magnet_z,
+        borderWidth: 1,
+        borderColor: 'rgb(243,214,0)'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          title: {
+            display: true, 
+            text: "B [µT]"
+          },
+          ticks: {
+              stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        title: {
+            display: true,
+            text: 'Magnetische Flussdichte in z-Richtung'
+        },
+        legend: {
+            display: false
+        }
+      }
+    }
+  });
+
+  chart_magnet_z.options.animation = false;
 
   function addData(chart, label, data) {
       chart.data.labels.push(label);
@@ -709,18 +1206,6 @@
       context_raw_data.fillText(row_data_monitor[i], 525, 355+i*20);
     }
   }, 100);
-
-  
-  //Example for signal processing 
-  //demonstration for raw data 
-  /*const canvas_micro = document.getElementById("cvs_micro");
-  const context_micro = canvas_micro.getContext("2d");
-
-  const img_micro = new Image(); 
-  img_micro.src = "img/micro.png";
-  img_micro.onload = function() {
-    context_micro.drawImage(img_micro, 60, 120, 100, 100); 
-  }*/
 
   //Audio Analog example chart 
   const ctx_audio_analog = document.getElementById('audio_analog');
