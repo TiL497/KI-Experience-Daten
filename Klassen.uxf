@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>810</x>
+      <y>30</y>
+      <w>250</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;struct&gt;&gt; 
+ContentView
+--
+-Spectrogram: AudioSpectrogram
+-SelectedTab: Tab
+-GyroView: GyroView
+-AccelView: AccelView
+-MagnetView: MagnetView
+-AudioView: AudioView
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>130</y>
+      <w>330</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>310.0;20.0;10.0;20.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>570</y>
+      <w>240</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt; 
+GyroMotionManager
+--
+motionmanager: CMMotionManager
+gyroData: CMGyroData
+x_series: Array
+y_series: Array
+z_series: Array
+--
+start()
+stop()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>570</y>
+      <w>240</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt; 
+AccelMotionManager
+--
+motionmanager: CMMotionManager
+accelData: CMAccelerometerData
+x_series: Array
+y_series: Array
+z_series: Array
+--
+start()
+stop()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>350</y>
+      <w>240</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;struct&gt;&gt; 
+GyroView
+--
+motion: GyroMotionManager
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>400</y>
+      <w>40</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>350</y>
+      <w>240</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;struct&gt;&gt; 
+AccelView
+--
+motion: AccelMotionManager
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>400</y>
+      <w>40</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>170</y>
+      <w>110</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>80.0;10.0;80.0;60.0;10.0;60.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>970</x>
+      <y>570</y>
+      <w>240</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt; 
+MagneticFieldManager
+--
+motionmanager: CMMotionManager
+magnetData: CMMagnetometerData
+x_series: Array
+y_series: Array
+z_series: Array
+--
+start()
+stop()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>970</x>
+      <y>350</y>
+      <w>240</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;struct&gt;&gt; 
+MagnetView
+--
+motion: MagnetFieldManager
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1080</x>
+      <y>400</y>
+      <w>40</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1010</x>
+      <y>170</y>
+      <w>110</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;80.0;60.0;80.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1240</x>
+      <y>350</y>
+      <w>240</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;struct&gt;&gt; 
+AudioView
+--
+Spectrogram: AudioSpectrogram
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>130</y>
+      <w>340</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;20.0;310.0;20.0;310.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1240</x>
+      <y>570</y>
+      <w>240</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt; 
+AudioSpectrogram
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1350</x>
+      <y>400</y>
+      <w>40</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=-
+
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+</diagram>
