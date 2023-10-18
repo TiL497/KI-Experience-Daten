@@ -41,121 +41,65 @@
   </div>
 
   <div style="display:none" id="divNavigation">
-    <div style="margin-top: 2%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
-      <div style="display:flex; margin-top: 4%; width: 95%; height: 95%">
-        <div style="display:flex; flex-direction: column; width:10%">
-        </div>
-          <div style="width:80%">
-            <div style="display:flex; flex-direction:row; width:99%; height:80%; margin-top: 2%;">
-              <div class="paragraphNavigation" style="margin-left: 1%" onClick="switchSite(3)">
-                <h1 style="margin-left: 5%;">Grundlagen</h1>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Was sind Daten?</p>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Welche Formate können Daten annehmen?</p>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie werden Daten digitalisiert?</p>
-              </div>
-              <div class="paragraphNavigation" style="margin-left: 0.5%;" onClick="switchSite(4)">
-                <h1 style="margin-left: 5%;">Verarbeitung</h1>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie erzeuge ich nützliche Informationen aus meinen Daten?</p>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Welche Werkzeuge kann ich verwenden? (Beispiele mit Smartphone-Sensoren)</p>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie kann ich meine Daten darstellen? (Beispiele mit Smartphone-Sensoren)</p>
-              </div>
-              <div class="paragraphNavigation" style="margin-left: 0.5%;" onClick="switchSite(5)">
-                <h1 style="margin-left: 5%;">Interpretation</h1>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Welchen Nutzen haben meine verarbeiteten Daten?</p>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Wie kann ich meine Daten interpetieren?</p>
-                <p style="margin-left: 5%; margin-right: 5%">&#x95; Tägliches Beispiel: Wie zählt mein Smartphone meine Schritte?</p>
-              </div>
+    <div style="margin-top: 1vh; display:flex; flex-direction: column; width: 80wh; height: 85vh;">
+      <div style="display: flex; flex-direction: row; width: 100%; height: 50%;">
+        <div style="display: flex; flex-direction: column; width: 50%; height: 100%;">
+          <div style="width:100%; margin-left: 2%">
+            <h3>Drehe dein Handy und schau was passiert.</h3>
+          </div>
+          <div style="display:flex; flex-direction: row; width: 100%; height: 50%;">
+            <div style="width:50%; height: 90%;">
+              <canvas id="gyro_x"></canvas>
+            </div>
+            <div style="width:50%; height: 90%;">
+              <canvas id="gyro_y"></canvas>
             </div>
           </div>
-        <div style="display:flex; flex-direction: column; width:10%">
+          <div style="width: 100%; height: 50%;">
+            <div style="width: 50%; height: 90%;">
+              <canvas id="gyro_z"></canvas>
+            </div>
+          </div>
+        </div>
+        <div style="width: 50%; height: 100%; display: flex; flex-direction: column;">
+          <div style="width:100%; margin-left: 2%">
+            <h3>Bewege dein Handy schnell und schau was passiert.</h3>
+          </div>
+          <div style="display:flex; flex-direction: row; width: 100%; height: 50%;">
+            <div style="width:50%; height: 90%;">
+              <canvas id="accel_x"></canvas>
+            </div>
+            <div style="width:50%; height: 90%;">
+              <canvas id="accel_y"></canvas>
+            </div>
+          </div>
+          <div style="width: 100%; height: 50%;">
+            <div style="width: 50%; height: 90%;">
+              <canvas id="accel_z"></canvas>
+            </div>
+          </div>      
         </div>
       </div>
-    </div>
-  </div>
-
-  <div style="display:none" id="divRaw">
-    <div style="margin-top: -1.5%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
-      <div style="display:flex; width: 95%; height: 95%">
-        <div style="display:flex; flex-direction: column; width:10%">
-          <div style="height:83%; width:100%">
+      <div style="display: flex; flex-direction: row; width: 100%; height: 50%;">
+        <div style="width: 50%; height: 100%; display: flex; flex-direction: column;">
+          <div style="width:100%; margin-left: 2%">
+            <h3>Bewege den Magnet und schau was passiert.</h3>
           </div>
-          <div style="height:10%; width:100%;">
-            <button style="margin-left: 60%; margin-top: 5%;" class="button button_next" onClick="nextPage(0)">&#60;</button>
-          </div>
-          <div style="height:45%; width:100%">
-          </div>
-        </div>
-        <div style="width:80%; margin-left: -0.5%;">
-          <div style="display:block;" id="divBasicRaw">
-            <h2 style="margin-left: 1%; margin-top: 3%;">Was sind Daten?</h2>
-            <div style="display:flex; flex-direction: column;">
-              <div style="width: 100%; height: 40vh;" class="paragraph">
-                <p style="margin-left: 1%; margin-right: 1%;">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div style="display:flex; flex-direction: row;">
-                <div style="width: 50%; height: 40vh; margin-top: 1%;" class="paragraph">
-                  <p style="margin-left: 2%; margin-right: 1%;">Test</p>
-                </div>
-                <div style="width: 50%; height: 40vh; margin-top: 1%; margin-left: 1%;" class="paragraph">
-                  <p style="margin-left: 2%; margin-right: 1%;">Test</p>
-                </div>
-              </div>
+          <div style="display:flex; flex-direction: row; width: 100%; height: 50%;">
+            <div style="width:50%; height: 90%;">
+              <canvas id="magnet_x"></canvas>
+            </div>
+            <div style="width:50%; height: 90%;">
+              <canvas id="magnet_y"></canvas>
             </div>
           </div>
-          <div style="display:none;" id="divBasicFormat">
-            <h2 style="margin-left: 1%; margin-top: 3%;">Welche Formate können Daten annehmen?</h2>
-            <div style="display:flex; flex-direction: column;">
-              <div style="display:flex; flex-direction: row;">
-                <div style="width: 33.3%; height: 40vh;" class="paragraph">
-                  <p style="margin-left: 2%; margin-right: 2%;">Sensorwert (Digital oder Analog)</p>
-                  <p style="margin-left: 2%; margin-right: 2%; font-size: 25px">&#x95; Sensorwert als Datengrundlage</p>
-                  <p style="margin-left: 2%; margin-right: 2%; font-size: 25px">&#x95; Mensch oder physikalisches Gerät agiert als Sensor</p>
-                  <p style="margin-left: 2%; margin-right: 2%; font-size: 25px">&#x95; Sensor erfasst (physikalische) Eigenschaften aus der Umgebung als Messwert</p>
-                </div>
-                <div style="width: 33.3%; height: 40vh;margin-left: 1%;" class="paragraph">
-                  <p style="margin-left: 2%;">Zeitreihe</p>
-                </div>
-                <div style="width: 33.3%; height: 40vh;margin-left: 1%;" class="paragraph">
-                  <p style="margin-left: 2%;">Dokument</p>
-                </div>
-              </div>
-              <div style="display:flex; flex-direction: row;">
-                <div style="width: 33.3%; height: 40vh; margin-top: 1%;" class="paragraph">
-                  <p style="margin-left: 2%;">Bild</p>
-                </div>
-                <div style="width: 33.3%; height: 40vh; margin-top: 1%; margin-left: 1%;" class="paragraph">
-                  <p style="margin-left: 2%;">Audio</p>
-                </div>
-                <div style="width: 33.3%; height: 40vh; margin-top: 1%; margin-left: 1%;" class="paragraph">
-                  <p style="margin-left: 2%;">Video</p>
-                </div>
-              </div>
+          <div style="width: 100%; height: 50%;">
+            <div style="width: 50%; height: 90%;">
+              <canvas id="magnet_z"></canvas>
             </div>
-          </div>
-          <div style="display:none;" id="divBasicAD">
-            <h2 style="margin-left: 1%; margin-top: 3%;">Wie werden Daten digitalisiert?</h2>
-            <div style="display:flex; flex-direction: row;">
-              <div style="height:50%; width:40%; margin-left: 2%;">
-                <canvas id="audio_analog"></canvas>
-              </div>
-              <div style="height:50%; width:40%; margin-left: 15%;">
-                <canvas id="audio_digital"></canvas>
-              </div>
-            </div>
-          </div>
-          <div style="display:none; margin-left:5%;" id="divBasicBack">
-            <button style="margin-left: 35%; margin-top: 28%;" class="button button_back" onClick="switchSite(2)">Zurück zur Übersicht</button>
-          </div>
+          </div>  
         </div>
-        <div style="display:flex; flex-direction: column; width:10%">
-          <div style="height:83%; width:100%">
-          </div>
-          <div style="height:10%; width:100%;">
-            <button style="margin-left: 5%; margin-top: 5%;" class="button button_next" onClick="nextPage(1)">&#62;</button>
-          </div>
-          <div style="height:45%; width:100%">
-          </div>
-        </div>
+        <div style="width: 50%; height: 100%; background-color: blue;"></div>
       </div>
     </div>
   </div>
@@ -163,17 +107,7 @@
   <div style="display:none" id="divProcess">
     <div style="margin-top: -1.5%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
       <div style="display:flex; width: 95%; height: 95%">
-        <div style="display:flex; flex-direction: column; width:10%">
-          <div style="height:45%; width:100%">
-          </div>
-          <div style="height:10%; width:100%;">
-            <button style="margin-left: 65%; margin-top: 5%;" class="button button_next" onClick="nextPage(0)">&#60;</button>
-          </div>
-          <div style="height:45%; width:100%">
-          </div>
-        </div>
-        <div style="width:80%">
-          <div style="display:block" id="divProcessGyro">
+          <div style="display:none" id="divProcessGyro">
             <h2 style="margin-left: 2%; margin-top: 3%;">Gyrosensor</h2>
             <div style="margin-top: 1%; margin-left: 2%; display:flex; flex-direction: column;">
               <div style="display: flex;">
@@ -238,48 +172,6 @@
               </div>
             </div>
           </div>
-          <div style="display:none; margin-left:5%;" id="divProcessBack">
-            <button style="margin-left: 35%; margin-top: 28%;" class="button button_back" onClick="switchSite(2)">Zurück zur Übersicht</button>
-          </div>
-        </div>
-        <div style="display:flex; flex-direction: column; width:10%">
-          <div style="height:45%; width:100%">
-          </div>
-          <div style="height:10%; width:100%;">
-            <button style="margin-left: 5%; margin-top: 5%;" class="button button_next" onClick="nextPage(1)">&#62;</button>
-          </div>
-          <div style="height:45%; width:100%">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div style="display:none" id="divInterpret">
-    <div style="margin-top: -1.5%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
-      <div style="display:flex; width: 95%; height: 95%">
-        <div style="display:flex; flex-direction: column; width:10%">
-          <div style="height:45%; width:100%">
-          </div>
-          <div style="height:10%; width:100%;">
-            <button style="margin-left: 65%; margin-top: 5%;" class="button button_next" onClick="nextPage(0)">&#60;</button>
-          </div>
-          <div style="height:45%; width:100%">
-          </div>
-        </div>
-        <div style="width:80%">
-          <div style="display:none; margin-left:5%;" id="divInterpretBack">
-            <button style="margin-left: 35%; margin-top: 28%;" class="button button_back" onClick="switchSite(2)">Zurück zur Übersicht</button>
-          </div>
-        </div>
-        <div style="display:flex; flex-direction: column; width:10%">
-          <div style="height:45%; width:100%">
-          </div>
-          <div style="height:10%; width:100%;">
-            <button style="margin-left: 5%; margin-top: 5%;" class="button button_next" onClick="nextPage(1)">&#62;</button>
-          </div>
-          <div style="height:45%; width:100%">
-          </div>
         </div>
       </div>
     </div>
@@ -329,7 +221,7 @@
 
 <script>
 
-  sites = ["divMain", "divSettings", "divNavigation", "divRaw", "divProcess", "divInterpret"];
+  sites = ["divMain", "divSettings", "divNavigation"];
   active = 0; 
   headings = ["Daten - Exponat Prototyp", "Einstellungen"];
   basic_sites = ["divBasicRaw", "divBasicFormat", "divBasicAD", "divBasicBack"]; 
@@ -527,7 +419,7 @@
 
   }
 
-  Chart.defaults.font.size = 18;
+  Chart.defaults.font.size = 14;
 
   //Gyrosensor x direction Chart
   const ctx_x = document.getElementById('gyro_x');
