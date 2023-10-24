@@ -148,7 +148,7 @@ extension AudioSpectrogram: AVCaptureAudioDataOutputSampleBufferDelegate {
     
     /// Starts the audio spectrogram.
     func startRunning() {
-        self.client.connect()
+        self.mqtt.client.connect()
         sessionQueue.async {
             if AVCaptureDevice.authorizationStatus(for: .audio) == .authorized {
                 self.captureSession.startRunning()
@@ -157,7 +157,7 @@ extension AudioSpectrogram: AVCaptureAudioDataOutputSampleBufferDelegate {
     }
     
     func stopRunning() {
-        self.client.disconnect()
+        self.mqtt.client.disconnect()
         self.captureSession.stopRunning()
     }
     

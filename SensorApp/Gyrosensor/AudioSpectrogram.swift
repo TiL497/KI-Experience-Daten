@@ -27,6 +27,8 @@ class AudioSpectrogram: NSObject, ObservableObject {
     
     @Published var outputImage = AudioSpectrogram.emptyCGImage
     
+    let mqtt = MQTTSettings.shared
+    
     // MARK: Initialization
     
     override init() {
@@ -131,12 +133,12 @@ class AudioSpectrogram: NSObject, ObservableObject {
             width: AudioSpectrogram.sampleCount,
             height: 1)
 
-    let client = MQTTClient(
+    /*let client = MQTTClient(
         configuration: .init(
             target: .host("192.168.137.1", port: 1883)
         ),
         eventLoopGroupProvider: .createNew
-    )
+    )*/
     
     /// A reusable array that contains the current frame of time-domain audio data as single-precision
     /// values.
@@ -202,7 +204,7 @@ class AudioSpectrogram: NSObject, ObservableObject {
             to_send = to_send + String(format: "%.5f", frequencyDomainBuffer[i]) + ","
         }
         
-        self.client.publish(to_send, to:"audio")
+        self.mqtt.client.publish(to_send, to:"audio")
         
         frequencyDomainValues.append(contentsOf: frequencyDomainBuffer)
     }

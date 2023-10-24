@@ -41,6 +41,8 @@ struct ContentView: View {
                             AccelView(motion: AccelMotionManager())
                         case .magnet:
                             MagnetView(motion: MagneticFieldManager())
+                        case .gear:
+                            MQTTSettingsView()
                     }
                 }
             }
@@ -50,6 +52,64 @@ struct ContentView: View {
                 //this is the selection bar at the bottom
                 CustomTabBar(selectedTab: $selectedTab)
             }
+        }
+    }
+}
+
+class MQTTSettings: ObservableObject{
+
+    static let shared = MQTTSettings(mqtthost: "192.168.137.1")
+    
+    @Published var mqtthost: String
+    @Published var client: MQTTClient
+    //initialize on startup
+    init(mqtthost: String) {
+        self.mqtthost = mqtthost
+        self.client = MQTTClient(
+            configuration: .init(
+                target: .host(mqtthost, port: 1883)
+            ),
+            eventLoopGroupProvider: .createNew
+        )
+    }
+    //change host ip address of mqtt server
+    func changeHost(){
+        self.client = MQTTClient(
+            configuration: .init(
+                target: .host(self.mqtthost, port: 1883)
+            ),
+            eventLoopGroupProvider: .createNew
+        )
+    }
+    
+}
+
+struct MQTTSettingsView: View {
+    
+    @StateObject var mqtt = MQTTSettings.shared
+    
+    //design of MQTTSettings view
+    var body: some View {
+        VStack {
+            Text("MQTT Settings")
+            HStack (alignment: .center) {
+                LabeledContent {
+                  TextField("Adresse eingeben", text: $mqtt.mqtthost)
+                        .disableAutocorrection(true)
+                } label: {
+                  Text("IP: ")
+                }
+                .padding(.leading, 115)
+            }
+            .padding()
+            Button("IP Übernehmen") {
+                mqtt.changeHost()
+            }
+            .bold()
+            .frame(width: 200, height:40)
+            .background(Color.blue)
+            .foregroundColor(Color.white)
+            .cornerRadius(10)
         }
     }
 }
@@ -370,6 +430,7 @@ struct data_over_time {
 class GyroMotionManager: ObservableObject {
     // MotionManager use the ObservableObject Combine property.
     private var motionManager: CMMotionManager
+    let mqtt = MQTTSettings.shared
     
     @Published
     var x: Double = 0.0
@@ -386,12 +447,12 @@ class GyroMotionManager: ObservableObject {
     @Published
     var z_series : [data_over_time] = []
     
-    let client = MQTTClient(
+    /*let client = MQTTClient(
         configuration: .init(
             target: .host("192.168.137.1", port: 1883)
         ),
         eventLoopGroupProvider: .createNew
-    )
+    )*/
 
     func customAppend(date:Date, value_x:Double, value_y:Double, value_z:Double){
         x_series.append(data_over_time(date:date,value:value_x))
@@ -405,7 +466,7 @@ class GyroMotionManager: ObservableObject {
     }
     
     func start() {
-        self.client.connect()
+        self.mqtt.client.connect()
         motionManager.startGyroUpdates(to: .main) { (gyroData, error) in
             guard error == nil else {
                 print(error!)
@@ -416,9 +477,9 @@ class GyroMotionManager: ObservableObject {
                 self.x = gyro.rotationRate.x
                 self.y = gyro.rotationRate.y
                 self.z = gyro.rotationRate.z
-                self.client.publish(String(format: "%.3f", self.x), to:"gyro/x")
-                self.client.publish(String(format: "%.3f", self.y), to:"gyro/y")
-                self.client.publish(String(format: "%.3f", self.z), to:"gyro/z")
+                self.mqtt.client.publish(String(format: "%.3f", self.x), to:"gyro/x")
+                self.mqtt.client.publish(String(format: "%.3f", self.y), to:"gyro/y")
+                self.mqtt.client.publish(String(format: "%.3f", self.z), to:"gyro/z")
                 self.customAppend(date:Date(),value_x:self.x,value_y:self.y,value_z:self.z)
             }
             
@@ -426,7 +487,7 @@ class GyroMotionManager: ObservableObject {
     }
     
     func stop() {
-        self.client.disconnect()
+        self.mqtt.client.disconnect()
         motionManager.stopGyroUpdates()
     }
     
@@ -440,6 +501,7 @@ class GyroMotionManager: ObservableObject {
 class AccelMotionManager: ObservableObject {
     // MotionManager use the ObservableObject Combine property.
     private var motionManager: CMMotionManager
+    let mqtt = MQTTSettings.shared
     
     @Published
     var x: Double = 0.0
@@ -456,12 +518,12 @@ class AccelMotionManager: ObservableObject {
     @Published
     var z_series : [data_over_time] = []
     
-    let client = MQTTClient(
+    /*let client = MQTTClient(
         configuration: .init(
             target: .host("192.168.137.1", port: 1883)
         ),
         eventLoopGroupProvider: .createNew
-    )
+    )*/
 
     func customAppend(date:Date, value_x:Double, value_y:Double, value_z:Double){
         x_series.append(data_over_time(date:date,value:value_x))
@@ -475,7 +537,7 @@ class AccelMotionManager: ObservableObject {
     }
     
     func start() {
-        self.client.connect()
+        self.mqtt.client.connect()
         motionManager.startAccelerometerUpdates(to: .main) { (accelData, error) in
             guard error == nil else {
                 print(error!)
@@ -486,9 +548,9 @@ class AccelMotionManager: ObservableObject {
                 self.x = accel.acceleration.x * 9.81
                 self.y = accel.acceleration.y * 9.81
                 self.z = accel.acceleration.z * 9.81
-                self.client.publish(String(format: "%.3f", self.x), to:"accel/x")
-                self.client.publish(String(format: "%.3f", self.y), to:"accel/y")
-                self.client.publish(String(format: "%.3f", self.z), to:"accel/z")
+                self.mqtt.client.publish(String(format: "%.3f", self.x), to:"accel/x")
+                self.mqtt.client.publish(String(format: "%.3f", self.y), to:"accel/y")
+                self.mqtt.client.publish(String(format: "%.3f", self.z), to:"accel/z")
                 self.customAppend(date:Date(),value_x:self.x,value_y:self.y,value_z:self.z)
             }
             
@@ -496,7 +558,7 @@ class AccelMotionManager: ObservableObject {
     }
     
     func stop() {
-        self.client.disconnect()
+        self.mqtt.client.disconnect()
         motionManager.stopAccelerometerUpdates()
     }
     
@@ -510,6 +572,7 @@ class AccelMotionManager: ObservableObject {
 class MagneticFieldManager: ObservableObject {
     // MotionManager use the ObservableObject Combine property.
     private var motionManager: CMMotionManager
+    let mqtt = MQTTSettings.shared
     
     @Published
     var x: Double = 0.0
@@ -526,12 +589,12 @@ class MagneticFieldManager: ObservableObject {
     @Published
     var z_series : [data_over_time] = []
     
-    let client = MQTTClient(
+    /*let client = MQTTClient(
         configuration: .init(
             target: .host("192.168.137.1", port: 1883)
         ),
         eventLoopGroupProvider: .createNew
-    )
+    )*/
 
     func customAppend(date:Date, value_x:Double, value_y:Double, value_z:Double){
         x_series.append(data_over_time(date:date,value:value_x))
@@ -545,7 +608,7 @@ class MagneticFieldManager: ObservableObject {
     }
     
     func start() {
-        self.client.connect()
+        self.mqtt.client.connect()
         motionManager.startMagnetometerUpdates(to: .main) { (magnetData, error) in
             guard error == nil else {
                 print(error!)
@@ -556,9 +619,9 @@ class MagneticFieldManager: ObservableObject {
                 self.x = magnet.magneticField.x
                 self.y = magnet.magneticField.y
                 self.z = magnet.magneticField.z
-                self.client.publish(String(format: "%.3f", self.x), to:"magnet/x")
-                self.client.publish(String(format: "%.3f", self.y), to:"magnet/y")
-                self.client.publish(String(format: "%.3f", self.z), to:"magnet/z")
+                self.mqtt.client.publish(String(format: "%.3f", self.x), to:"magnet/x")
+                self.mqtt.client.publish(String(format: "%.3f", self.y), to:"magnet/y")
+                self.mqtt.client.publish(String(format: "%.3f", self.z), to:"magnet/z")
                 self.customAppend(date:Date(),value_x:self.x,value_y:self.y,value_z:self.z)
             }
             
@@ -566,7 +629,7 @@ class MagneticFieldManager: ObservableObject {
     }
     
     func stop() {
-        self.client.disconnect()
+        self.mqtt.client.disconnect()
         motionManager.stopMagnetometerUpdates()
     }
     

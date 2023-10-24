@@ -12,6 +12,7 @@ enum Tab: String, CaseIterable {
     case accel
     case magnet
     case mic
+    case gear
 }
 
 struct CustomTabBar: View {
@@ -42,6 +43,9 @@ struct CustomTabBar: View {
                                     case 3:
                                         selectedTab = Tab.mic
                                         tabIcon = "mic"
+                                    case 4:
+                                        selectedTab = Tab.gear
+                                        tabIcon = "gear"
                                     default:
                                         selectedTab = Tab.gyroscope
                                 }
@@ -60,7 +64,7 @@ struct CustomTabBar: View {
                     .font(.system(size: 22))
                     .onTapGesture {
                         withAnimation(.easeIn(duration: 0.1)) {
-                            if idx < 3 {
+                            if idx < 4 {
                                 idx = idx + 1
                                 tabIcon = "gyroscope"
                                 switch idx {
@@ -73,6 +77,9 @@ struct CustomTabBar: View {
                                     case 3:
                                         selectedTab = Tab.mic
                                         tabIcon = "mic"
+                                    case 4:
+                                        selectedTab = Tab.gear
+                                        tabIcon = "gear"
                                     default:
                                         selectedTab = Tab.gyroscope
                                 }
