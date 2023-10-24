@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="mqtt.min.js"></script>
-<link rel="stylesheet" href="styles.css">
+<script src="js/chart.js"></script>
+<script src="js/mqtt.min.js"></script>
+<link rel="stylesheet" href="css/styles.css">
 
 </head>
 
@@ -43,133 +43,133 @@
   <div style="display:none" id="divNavigation">
     <div style="margin-top: 1vh; display:flex; flex-direction: column; width: 80wh; height: 85vh;">
       <div style="display: flex; flex-direction: row; width: 100%; height: 50%;">
-        <div style="display: flex; flex-direction: column; width: 50%; height: 100%;">
-          <div style="width:100%; margin-left: 2%">
-            <h3>Drehe dein Handy und schau was passiert.</h3>
+        <div style="display: flex; flex-direction: column; width: 50%; height: 100%;" onClick="openWindow(0)">
+          <div style="width:100%; margin-left: 40%;">
+            <h3>Drehe dein Handy</h3>
           </div>
-          <div style="display:flex; flex-direction: row; width: 100%; height: 50%;">
-            <div style="width:50%; height: 90%;">
-              <canvas id="gyro_x"></canvas>
-            </div>
-            <div style="width:50%; height: 90%;">
-              <canvas id="gyro_y"></canvas>
-            </div>
-          </div>
-          <div style="width: 100%; height: 50%;">
-            <div style="width: 50%; height: 90%;">
-              <canvas id="gyro_z"></canvas>
-            </div>
+          <div style="width:100%; height: 90%; margin-left: 10%">
+            <canvas id="gyro_preview_x"></canvas>
           </div>
         </div>
-        <div style="width: 50%; height: 100%; display: flex; flex-direction: column;">
-          <div style="width:100%; margin-left: 2%">
-            <h3>Bewege dein Handy schnell und schau was passiert.</h3>
+        <div style="width: 50%; height: 100%; display: flex; flex-direction: column;" onClick="openWindow(1)">
+          <div style="width:100%; margin-left: 40%">
+            <h3>Bewege dein Handy</h3>
           </div>
-          <div style="display:flex; flex-direction: row; width: 100%; height: 50%;">
-            <div style="width:50%; height: 90%;">
-              <canvas id="accel_x"></canvas>
-            </div>
-            <div style="width:50%; height: 90%;">
-              <canvas id="accel_y"></canvas>
-            </div>
-          </div>
-          <div style="width: 100%; height: 50%;">
-            <div style="width: 50%; height: 90%;">
-              <canvas id="accel_z"></canvas>
-            </div>
-          </div>      
+          <div style="width:100%; height: 90%; margin-left: 10%">
+            <canvas id="accel_preview_x"></canvas>
+          </div>     
         </div>
       </div>
       <div style="display: flex; flex-direction: row; width: 100%; height: 50%;">
-        <div style="width: 50%; height: 100%; display: flex; flex-direction: column;">
-          <div style="width:100%; margin-left: 2%">
-            <h3>Bewege den Magnet und schau was passiert.</h3>
+        <div style="width: 50%; height: 100%; display: flex; flex-direction: column;" onClick="openWindow(2)">
+          <div style="width:100%; margin-left: 40%">
+            <h3>Bewege den Magnet</h3>
           </div>
-          <div style="display:flex; flex-direction: row; width: 100%; height: 50%;">
-            <div style="width:50%; height: 90%;">
-              <canvas id="magnet_x"></canvas>
-            </div>
-            <div style="width:50%; height: 90%;">
-              <canvas id="magnet_y"></canvas>
-            </div>
-          </div>
-          <div style="width: 100%; height: 50%;">
-            <div style="width: 50%; height: 90%;">
-              <canvas id="magnet_z"></canvas>
-            </div>
-          </div>  
+          <div style="width:100%; height: 90%; margin-left: 10%">
+            <canvas id="magnet_preview_x"></canvas>
+          </div> 
         </div>
-        <div style="width: 50%; height: 100%; background-color: blue;"></div>
+        <div style="width: 50%; height: 100%;" onClick="openWindow(3)">
+          <div style="width:100%; margin-left: 40%">
+            <h3>Spreche in dein Mikrofon</h3>
+          </div>
+          <div style="margin-top: 2%; display:flex;">
+            <div style="margin-left:23%">
+              <canvas width="100" height="360" id="cvs_axis_preview"></canvas>
+            </div>
+            <div>
+              <canvas width="340" height="360" id="cvs_spectro_preview"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div style="display:none" id="divProcess">
-    <div style="margin-top: -1.5%; margin-left: 5%; display:flex; flex-direction:column; height: 82vh;">
-      <div style="display:flex; width: 95%; height: 95%">
-          <div style="display:none" id="divProcessGyro">
-            <h2 style="margin-left: 2%; margin-top: 3%;">Gyrosensor</h2>
-            <div style="margin-top: 1%; margin-left: 2%; display:flex; flex-direction: column;">
-              <div style="display: flex;">
-                <div style="height:30vh; width:60vw">
-                  <canvas id="gyro_x"></canvas>
-                </div>
-                <div style="height:30vh; width:60vw">
-                  <canvas id="gyro_y"></canvas>
-                </div>
-              </div>
-              <div style="margin-top: 5%; display:flex">
-                <div style="height:30vh; width:60vw">
-                  <canvas id="gyro_z"></canvas>
-                </div>
-              </div>
+  <div id="overlay" onClick="closeWindow(event)">
+    <div style="border-style: outset; border-color: #0068B4; border-width: 5px;" id="popup" onClick="preventClosing(event)">
+      <div style="display:none;" id="gyro">
+        <h2>Gyrosensor</h2>
+        <p>Drehe dein Handy, um die Drehrate in x-, y- und z-Richtung zu sehen.</p>
+        <div style="display:flex; flex-direction: column; margin-left:5%;">
+          <div style="display: flex;">
+            <div style="height:30vh; width:50%">
+              <canvas id="gyro_x"></canvas>
+            </div>
+            <div style="height:30vh; width:50%">
+              <canvas id="gyro_y"></canvas>
             </div>
           </div>
-          <div style="display:none" id="divProcessAccel">
-            <h2 style="margin-left: 2%; margin-top: 3%;">Beschleunigungssensor</h2>
-            <div style="margin-top: 1%; margin-left: 2%; display:flex; flex-direction: column;">
-              <div style="display: flex;">
-                <div style="height:30vh; width:60vw">
-                  <canvas id="accel_x"></canvas>
-                </div>
-                <div style="height:30vh; width:60vw">
-                  <canvas id="accel_y"></canvas>
-                </div>
-              </div>
-              <div style="margin-top: 5%; display:flex">
-                <div style="height:30vh; width:60vw">
-                  <canvas id="accel_z"></canvas>
-                </div>
-              </div>
+          <div style="margin-top: 5%; display:flex">
+            <div style="height:30vh; width:50%">
+              <canvas id="gyro_z"></canvas>
+            </div>
+            <div style="width: 50%; margin-top: -5%">
+              <h3>Informationen</h3>
+              <p style="margin-right: 5%;">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+              <button style="margin-left: 29%; margin-top: 5%; font-size: 20px;" class="button button_next" onClick="closeWindow(event)">Zurück zum Dashboard</button>
             </div>
           </div>
-          <div style="display:none" id="divProcessMagnet">
-            <h2 style="margin-left: 2%; margin-top: 3%;">Magnetometer</h2>
-            <div style="margin-top: 1%; margin-left: 2%; display:flex; flex-direction: column;">
-              <div style="display: flex;">
-                <div style="height:30vh; width:60vw">
-                  <canvas id="magnet_x"></canvas>
-                </div>
-                <div style="height:30vh; width:60vw">
-                  <canvas id="magnet_y"></canvas>
-                </div>
-              </div>
-              <div style="margin-top: 5%; display:flex">
-                <div style="height:30vh; width:60vw">
-                  <canvas id="magnet_z"></canvas>
-                </div>
-              </div>
+        </div>
+      </div>
+      <div style="display:none;" id="accel">
+        <h2>Beschleunigungssensor</h2>
+        <p>Bewege dein Handy, um die Beschleunigung in x-, y- und z-Richtung zu sehen.</p>
+        <div style="display:flex; flex-direction: column; margin-left:5%;">
+          <div style="display: flex;">
+            <div style="height:30vh; width:60vw">
+              <canvas id="accel_x"></canvas>
+            </div>
+            <div style="height:30vh; width:60vw">
+              <canvas id="accel_y"></canvas>
             </div>
           </div>
-          <div style="display:none" id="divProcessAudio">
-            <h2 style="margin-left: 2%; margin-top: 3%;">Audiosensor</h2>
-            <div style="margin-top: 2%; display:flex;">
-              <div style="margin-left:2%">
-                <canvas width="100" height="788" id="cvs_axis"></canvas>
-              </div>
-              <div>
-                <canvas width="768" height="788" id="cvs_spectro"></canvas>
-              </div>
+          <div style="margin-top: 5%; display:flex">
+            <div style="height:30vh; width:50%">
+              <canvas id="accel_z"></canvas>
+            </div>
+            <div style="width: 50%; margin-top: -5%">
+              <h3>Informationen</h3>
+              <p style="margin-right: 5%;">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+              <button style="margin-left: 29%; margin-top: 5%; font-size: 20px;" class="button button_next" onClick="closeWindow(event)">Zurück zum Dashboard</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:none;" id="magnet">
+        <h2>Magnetometer</h2>
+        <p>Bewege den Magnet, um die Änderung der Magnetischen Flussdichte in x-, y- und z-Richtung zu sehen.</p>
+        <div style="display:flex; flex-direction: column; margin-left:5%;">
+          <div style="display: flex;">
+            <div style="height:30vh; width:60vw">
+              <canvas id="magnet_x"></canvas>
+            </div>
+            <div style="height:30vh; width:60vw">
+              <canvas id="magnet_y"></canvas>
+            </div>
+          </div>
+          <div style="margin-top: 5%; display:flex">
+            <div style="height:30vh; width:50%">
+              <canvas id="magnet_z"></canvas>
+            </div>
+            <div style="width: 50%; margin-top: -5%">
+              <h3>Informationen</h3>
+              <p style="margin-right: 5%;">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+              <button style="margin-left: 29%; margin-top: 5%; font-size: 20px;" class="button button_next" onClick="closeWindow(event)">Zurück zum Dashboard</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:none;" id="audio">
+        <h2>Audiosensor</h2>
+        <p>Sprech in dein Handymikrofon, um die Änderung im Spektrogramm zu sehen.</p>
+        <div style="display:flex; flex-direction: column;">
+          <div style="display:flex;">
+            <div style="margin-left:2%">
+              <canvas width="100" height="640" id="cvs_axis"></canvas>
+            </div>
+            <div>
+              <canvas width="620" height="640" id="cvs_spectro"></canvas>
             </div>
           </div>
         </div>
@@ -221,776 +221,31 @@
 
 <script>
 
-  sites = ["divMain", "divSettings", "divNavigation"];
-  active = 0; 
-  headings = ["Daten - Exponat Prototyp", "Einstellungen"];
-  basic_sites = ["divBasicRaw", "divBasicFormat", "divBasicAD", "divBasicBack"]; 
-  basic_site_idx = 0; 
-  process_sites = ["divProcessGyro", "divProcessAccel", "divProcessMagnet", "divProcessAudio", "divProcessBack"]; 
-  process_site_idx = 0;
-  interpret_sites = ["divInterpretBack"]; 
-  interpret_site_idx = 0;
-
-  displayPage(); 
-
-  function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-  }
-
-  function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-  }
-
-  function switchSite(id) {
-    if (id == active){
-      return; 
-    }
-    for (i = 0; i < sites.length; i++){
-      document.getElementById(sites[i]).style.display = "none";
-    }
-    document.getElementById(sites[id]).style.display = "block"; 
-    if (sites[id] == "divSettings" || sites[id] == "divMain"){
-      document.getElementById("heading").innerHTML = headings[id]; 
-    } 
-    active = id; 
-    basic_site_idx = 0;
-    process_site_idx = 0;
-    interpret_site_idx = 0;
-    displayPage(); 
-    closeNav(); 
-  }
-
-  function nextPage(dir){
-    if (sites[active] == "divRaw"){
-      if ((dir == 0) && (basic_site_idx > 0)){
-        basic_site_idx -= 1; 
-      } else if ((dir == 1) && (basic_site_idx < (basic_sites.length - 1))){
-        basic_site_idx += 1; 
-      } 
-      displayPage(); 
-    } else if (sites[active] == "divProcess"){
-      if ((dir == 0) && (process_site_idx > 0)){
-        process_site_idx -= 1; 
-      } else if ((dir == 1) && (process_site_idx < (process_sites.length - 1))){
-        process_site_idx += 1; 
-      } 
-      displayPage(); 
-    } else if (sites[active] == "divInterpret"){
-      if ((dir == 0) && (interpret_site_idx > 0)){
-        interpret_site_idx -= 1; 
-      } else if ((dir == 1) && (interpret_site_idx < (interpret_sites.length - 1))){
-        interpret_site_idx += 1; 
-      } 
-      displayPage(); 
-    }
-  }
-
-  function displayPage(){
-    if (sites[active] == "divRaw"){
-      for (i = 0; i < basic_sites.length; i++){
-        document.getElementById(basic_sites[i]).style.display = "none";
-      }
-      document.getElementById(basic_sites[basic_site_idx]).style.display = "block"; 
-    } else if (sites[active] == "divProcess"){
-      for (i = 0; i < process_sites.length; i++){
-        document.getElementById(process_sites[i]).style.display = "none";
-      }
-      document.getElementById(process_sites[process_site_idx]).style.display = "block"; 
-    } else if (sites[active] == "divInterpret"){
-      for (i = 0; i < interpret_sites.length; i++){
-        document.getElementById(interpret_sites[i]).style.display = "none";
-      }
-      document.getElementById(interpret_sites[interpret_site_idx]).style.display = "block"; 
-    }
-  }
-
-  //Create MQTT Client ID
-  const client_id = 'mqttjs_' + Math.random().toString(16).substr(2, 8);
-  //connection url for MQTT connect
-  var host = 'ws://192.168.137.1:9001';
-  //ws://broker.hivemq.com:8000/mqtt
-
-  document.getElementById("MQTTIP").innerHTML = host; 
-
-  //MQTT Options
-  const options = {
-    keepalive: 60,
-    clientId: client_id,
-    protocolId: 'MQTT',
-    protocolVersion: 4,
-    clean: true,
-    reconnectPeriod: 1000,
-    connectTimeout: 30 * 1000,
-    will: {
-    topic: 'WillMsg',
-    payload: 'Connection Closed abnormally..!',
-    qos: 0,
-    retain: false
-    },
-  }
-
-  var x_gyro_counter = 0;
-  var y_gyro_counter = 0;
-  var z_gyro_counter = 0;
-
-  var x_accel_counter = 0;
-  var y_accel_counter = 0;
-  var z_accel_counter = 0;
-
-  var x_magnet_counter = 0;
-  var y_magnet_counter = 0;
-  var z_magnet_counter = 0;
-
-  //Create Connection and Subscribe to all subtopics from factory
-  console.log('Connecting mqtt client');
-  let client = mqtt.connect(host, options);
-  initMQTT(0); 
-
-  function initMQTT(newIP){
-    if (newIP){
-      new_host = document.getElementById("newMQTTIP").value; 
-      console.log(new_host);
-      document.getElementById("MQTTIP").innerHTML = new_host; 
-      //disconnect 
-      client.end();
-      //connect 
-      client = mqtt.connect(new_host, options);
-    }
-
-    //Error Handling
-    client.on('error', (err) => {
-      console.log('Connection error: ', err);
-      client.end();
-    })
-
-    client.on('connect', function() {
-      console.log('connected');
-    })
-
-    client.on('disconnect', function (packet) {
-      console.log(packet);
-    })
-
-    client.on('close', function () {
-      console.log('Disconnected');
-    })
-
-    //subscripe to topic 
-    client.subscribe('gyro/#'); 
-    client.subscribe('audio/#');
-    client.subscribe('accel/#');
-    client.subscribe('magnet/#');
-
-    //fetch data 
-    client.on('message', (topic, message) => {
-      topic_target = topic.toString();
-      //split topic and send data to viz 
-      if (topic_target == "gyro/x") {
-        addData(chart_gyro_x, x_gyro_counter, parseFloat(message));
-        x_gyro_counter += 1;  
-      } else if (topic_target == "gyro/y"){
-        addData(chart_gyro_y, y_gyro_counter, parseFloat(message)); 
-        y_gyro_counter += 1; 
-      } else if (topic_target == "gyro/z"){
-        addData(chart_gyro_z, z_gyro_counter, parseFloat(message)); 
-        z_gyro_counter += 1; 
-      } else if (topic_target == "accel/x"){
-        addData(chart_accel_x, x_accel_counter, parseFloat(message)); 
-        x_accel_counter += 1; 
-      } else if (topic_target == "accel/y"){
-        addData(chart_accel_y, y_accel_counter, parseFloat(message)); 
-        y_accel_counter += 1; 
-      } else if (topic_target == "accel/z"){
-        addData(chart_accel_z, z_accel_counter, parseFloat(message)); 
-        z_accel_counter += 1; 
-      } else if (topic_target == "magnet/x"){
-        addData(chart_magnet_x, x_magnet_counter, parseFloat(message)); 
-        x_magnet_counter += 1; 
-      } else if (topic_target == "magnet/y"){
-        addData(chart_magnet_y, y_magnet_counter, parseFloat(message)); 
-        y_magnet_counter += 1; 
-      } else if (topic_target == "magnet/z"){
-        addData(chart_magnet_z, z_magnet_counter, parseFloat(message)); 
-        z_magnet_counter += 1; 
-      } else if (topic_target == "audio"){
-        spectrogram.newData(message.toString());
-      }
-    })
-
-  }
-
-  Chart.defaults.font.size = 14;
-
-  //Gyrosensor x direction Chart
-  const ctx_x = document.getElementById('gyro_x');
-  var data_x = [];
-  var label_x = [];
-
-  var chart_gyro_x =new Chart(ctx_x, {
-    type: 'line',
-    data: {
-      labels: label_x,
-      datasets: [{
-        label: 'Gyro Raw - x direction',
-        data: data_x,
-        borderWidth: 1,
-        borderColor: 'rgb(234, 0, 0)',
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          title: {
-            display: true, 
-            text: "ω [rad/s]"
-          },
-          ticks: {
-              stepSize: 1
-          }
-        },
-      },
-      plugins: {
-        title: {
-          display: true,
-          text: 'Winkelgeschwindigkeit in x-Richtung'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_gyro_x.options.animation = false;
-
-  //Gyrosensor y direction Chart 
-  const ctx_y = document.getElementById('gyro_y');
-  var data_y = [];
-  var label_y = [];
-
-  var chart_gyro_y = new Chart(ctx_y, {
-    type: 'line',
-    data: {
-      labels: label_y,
-      datasets: [{
-        label: 'Gyro Raw - y direction',
-        data: data_y,
-        borderWidth: 1,
-        borderColor: 'rgb(243, 104, 0)'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          title: {
-            display: true, 
-            text: "ω [rad/s]"
-          },
-          ticks: {
-              stepSize: 1
-          }
-        }
-      },
-      plugins: {
-        title: {
-            display: true,
-            text: 'Winkelgeschwindigkeit in y-Richtung'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_gyro_y.options.animation = false;
-
-  //Gyrosensor z direction Chart
-  const ctx_z = document.getElementById('gyro_z');
-  var data_z = [];
-  var label_z = [];
-
-  var chart_gyro_z =new Chart(ctx_z, {
-    type: 'line',
-    data: {
-      labels: label_z,
-      datasets: [{
-        label: 'Gyro Raw - z direction',
-        data: data_z,
-        borderWidth: 1,
-        borderColor: 'rgb(243,214,0)'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          title: {
-            display: true, 
-            text: "ω [rad/s]"
-          },
-          ticks: {
-              stepSize: 1
-          }
-        }
-      },
-      plugins: {
-        title: {
-            display: true,
-            text: 'Winkelgeschwindigkeit in z-Richtung'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_gyro_z.options.animation = false;
-
-  //Acceleration x direction Chart
-  const ctx_accel_x = document.getElementById('accel_x');
-  var data_accel_x = [];
-  var label_accel_x = [];
-
-  var chart_accel_x =new Chart(ctx_accel_x, {
-    type: 'line',
-    data: {
-      labels: label_accel_x,
-      datasets: [{
-        label: 'Beschleunigung - Richtung x-Achse',
-        data: data_accel_x,
-        borderWidth: 1,
-        borderColor: 'rgb(243,214,0)'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          title: {
-            display: true, 
-            text: "a [m/s²]"
-          },
-          ticks: {
-              stepSize: 1
-          }
-        }
-      },
-      plugins: {
-        title: {
-            display: true,
-            text: 'Beschleunigung in x-Richtung'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_accel_x.options.animation = false;
-
-  //Acceleration y direction Chart
-  const ctx_accel_y = document.getElementById('accel_y');
-  var data_accel_y = [];
-  var label_accel_y = [];
-
-  var chart_accel_y =new Chart(ctx_accel_y, {
-    type: 'line',
-    data: {
-      labels: label_accel_y,
-      datasets: [{
-        label: 'Beschleunigung - Richtung y-Achse',
-        data: data_accel_y,
-        borderWidth: 1,
-        borderColor: 'rgb(243,214,0)'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          title: {
-            display: true, 
-            text: "a [m/s²]"
-          },
-          ticks: {
-              stepSize: 1
-          }
-        }
-      },
-      plugins: {
-        title: {
-            display: true,
-            text: 'Beschleunigung in y-Richtung'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_accel_y.options.animation = false;
-
-  //Acceleration z direction Chart
-  const ctx_accel_z = document.getElementById('accel_z');
-  var data_accel_z = [];
-  var label_accel_z = [];
-
-  var chart_accel_z =new Chart(ctx_accel_z, {
-    type: 'line',
-    data: {
-      labels: label_accel_z,
-      datasets: [{
-        label: 'Beschleunigung - Richtung z-Achse',
-        data: data_accel_z,
-        borderWidth: 1,
-        borderColor: 'rgb(243,214,0)'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          title: {
-            display: true, 
-            text: "a [m/s²]"
-          },
-          ticks: {
-              stepSize: 1
-          }
-        }
-      },
-      plugins: {
-        title: {
-            display: true,
-            text: 'Beschleunigung in z-Richtung'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_accel_z.options.animation = false;
-
-  //Magnetometer x direction Chart
-  const ctx_magnet_x = document.getElementById('magnet_x');
-  var data_magnet_x = [];
-  var label_magnet_x = [];
-
-  var chart_magnet_x =new Chart(ctx_magnet_x, {
-    type: 'line',
-    data: {
-      labels: label_magnet_x,
-      datasets: [{
-        label: 'Magnetische Flussdichte - Richtung x-Achse',
-        data: data_magnet_x,
-        borderWidth: 1,
-        borderColor: 'rgb(243,214,0)'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          title: {
-            display: true, 
-            text: "B [µT]"
-          },
-          ticks: {
-              stepSize: 1
-          }
-        }
-      },
-      plugins: {
-        title: {
-            display: true,
-            text: 'Magnetische Flussdichte in x-Richtung'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_magnet_x.options.animation = false;
-
-  //Magnetometer y direction Chart
-  const ctx_magnet_y = document.getElementById('magnet_y');
-  var data_magnet_y = [];
-  var label_magnet_y = [];
-
-  var chart_magnet_y =new Chart(ctx_magnet_y, {
-    type: 'line',
-    data: {
-      labels: label_magnet_y,
-      datasets: [{
-        label: 'Magnetische Flussdichte - Richtung y-Achse',
-        data: data_magnet_y,
-        borderWidth: 1,
-        borderColor: 'rgb(243,214,0)'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          title: {
-            display: true, 
-            text: "B [µT]"
-          },
-          ticks: {
-              stepSize: 1
-          }
-        }
-      },
-      plugins: {
-        title: {
-            display: true,
-            text: 'Magnetische Flussdichte in y-Richtung'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_magnet_y.options.animation = false;
-
-  //Magnetometer y direction Chart
-  const ctx_magnet_z = document.getElementById('magnet_z');
-  var data_magnet_z = [];
-  var label_magnet_z = [];
-
-  var chart_magnet_z =new Chart(ctx_magnet_z, {
-    type: 'line',
-    data: {
-      labels: label_magnet_z,
-      datasets: [{
-        label: 'Magnetische Flussdichte - Richtung z-Achse',
-        data: data_magnet_z,
-        borderWidth: 1,
-        borderColor: 'rgb(243,214,0)'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          title: {
-            display: true, 
-            text: "B [µT]"
-          },
-          ticks: {
-              stepSize: 1
-          }
-        }
-      },
-      plugins: {
-        title: {
-            display: true,
-            text: 'Magnetische Flussdichte in z-Richtung'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_magnet_z.options.animation = false;
-
-  function addData(chart, label, data) {
-      chart.data.labels.push(label);
-      chart.data.datasets.forEach((dataset) => {
-          dataset.data.push(data);
-      });
-      if (chart.data.labels.length > 100){
-        chart.data.labels.shift(); 
-        chart.data.datasets.forEach((dataset) => {
-          dataset.data.shift();
-        });
-      }
-      chart.update();
-  }
-
-  spectrogram = new Spectrogram("cvs_spectro"); 
-  spectrogram.initialize();
-
-  //draw y-axis 
-  const canvas_axis = document.getElementById("cvs_axis");
-  const ctx_axis = canvas_axis.getContext("2d");
-
-  ctx_axis.beginPath(); 
-  ctx_axis.moveTo(canvas_axis.width-10, 10);
-  ctx_axis.lineTo(canvas_axis.width-10, 778);
-  ctx_axis.lineWidth = 2;
-  ctx_axis.strokeStyle = '#000000';
-  ctx_axis.font = "20px Arial";
-  ctx_axis.stroke(); 
-
-  //draw y-axis markings 
-  ticks = 12;
-  height = (canvas_axis.height-20)
-  distance = height/(ticks-1);
-  ctx_axis.beginPath(); 
-  ctx_axis.moveTo(canvas_axis.width-10, height+9);
-  ctx_axis.lineTo(canvas_axis.width-15, height+9);
-  ctx_axis.fillText("22", canvas_axis.width-45, 18);
-  ctx_axis.stroke();
-  for (i = 1; i < ticks; i++){
-    ctx_axis.beginPath(); 
-    ctx_axis.moveTo(canvas_axis.width-10, height-distance*i+11);
-    ctx_axis.lineTo(canvas_axis.width-15, height-distance*i+11);
-    if ((2*(ticks-i-1)) < 10){
-      ctx_axis.fillText(2*(ticks-i-1), canvas_axis.width-38, distance*i+18);
-    } else {
-      ctx_axis.fillText(2*(ticks-i-1), canvas_axis.width-45, distance*i+18);
-    }
-    ctx_axis.stroke();
-  }
-  ctx_axis.save();
-  ctx_axis.rotate(3 * Math.PI / 2);
-  ctx_axis.textAlign = "left";
-  ctx_axis.fillText("f [kHz]", -height/2-40, 30);
-  ctx_axis.restore();
-
-  function Spectrogram(cvs){
-    const c = document.getElementById(cvs);
-    const ctx = c.getContext("2d");
-    const data_buffer = new Uint8Array(768*768*4);
-    const COLOR_MAP = [[0, 0, 0], 
-    [1523, 0, 11770], 
-    [4301, 0, 16645], 
-    [7899, 0, 20386], 
-    [12158, 0, 23540],
-    [16989, 0, 26319], 
-    [22330, 0, 28831], 
-    [28137, 0, 31141], 
-    [33291, 0, 32208], 
-    [35311, 0, 29605], 
-    [37221, 0, 26405], 
-    [39038, 0, 22657], 
-    [40773, 0, 18404], 
-    [42438, 0, 13680], 
-    [44040, 0, 8514], 
-    [45586, 0, 2931], 
-    [47081, 3046, 0], 
-    [48530, 9401, 0], 
-    [49937, 16117, 0], 
-    [51306, 23178, 0], 
-    [52638, 30572, 0], 
-    [53938, 38286, 0], 
-    [55208, 46310, 0], 
-    [56449, 54633, 0], 
-    [52077, 57663, 0], 
-    [45558, 58852, 0], 
-    [38717, 60017, 0], 
-    [31563, 61160, 0], 
-    [24107, 62283, 0], 
-    [16355, 63385, 0], 
-    [8317, 64469, 0], 
-    [0, 65535, 0]]
-
-    this.initialize = () => {
-        //initialize
-        for(var y = 0; y < 768; y++) {
-            for(var x = 0; x < 768; x++) {
-                var pos = (y * 768 + x) * 4; 
-                data_buffer[pos] = 0;           
-                data_buffer[pos+1] =  0;        
-                data_buffer[pos+2] =  0;          
-                data_buffer[pos+3] = 255;  
-            }
-        }
-        var image_data = ctx.createImageData(768, 768);
-        image_data.data.set(data_buffer);
-        ctx.putImageData(image_data, 0, 10);
-    }
-
-    this.newData = (message) => {
-        const data = message.split(",");
-        //shift elements by one left
-        var tmp_image = ctx.getImageData(1, 10, 767, 768);
-        ctx.putImageData(tmp_image, 0, 10);
-
-        var new_data_buffer = new Uint8Array(1024*4);
-        //populate array with new data 
-        var pos_counter = 0;
-        //map data 
-        for (i = 1024; i > 0; i--){
-            var pos = pos_counter * 4;
-            var temp_data = data[i]; 
-            if (temp_data < 0) temp_data = 0.00000000000001;
-            if (temp_data > 1) temp_data = 0.99999999999999;
-            const index = Math.floor(temp_data * (COLOR_MAP.length - 1));
-            try {
-              new_data_buffer[pos] = COLOR_MAP[index][0]; 
-              new_data_buffer[pos+1] = COLOR_MAP[index][1];
-              new_data_buffer[pos+2] = COLOR_MAP[index][2];
-              new_data_buffer[pos+3] = 255;
-            } catch (error){
-              new_data_buffer[pos] = 0; 
-              new_data_buffer[pos+1] = 0;
-              new_data_buffer[pos+2] = 0;
-              new_data_buffer[pos+3] = 255;
-              console.error(error);
-            }
-            pos_counter += 1;
-        }
-
-        const originalWidth = 1; // Ursprüngliche Breite 
-        const originalHeight = 1024; // Ursprüngliche Höhe 
-
-        // Erstelle ein HTMLCanvasElement mit der ursprünglichen Breite und Höhe.
-        const canvas = document.createElement('canvas');
-        canvas.width = originalWidth;
-        canvas.height = originalHeight;
-
-        // Hole den 2D-Kontext des Canvas.
-        const context = canvas.getContext('2d');
-
-        // Erstelle eine ImageData-Instanz aus dem UInt8Array und den Abmessungen.
-        const imageData = new ImageData(new Uint8ClampedArray(new_data_buffer.buffer), originalWidth, originalHeight);
-
-        // Zeichne die ImageData auf das Canvas.
-        context.putImageData(imageData, 0, 0);
-
-        // Jetzt haben wir das Bild auf dem Canvas. Du kannst die Größe des Bildes ändern (resizen).
-        const newWidth = 1; // Neue Breite
-        const newHeight = 768; // Neue Höhe
-
-        // Erstelle ein neues HTMLCanvasElement mit der neuen Breite und Höhe.
-        const resizedCanvas = document.createElement('canvas');
-        resizedCanvas.width = newWidth;
-        resizedCanvas.height = newHeight;
-
-        // Hole den 2D-Kontext des neuen Canvas.
-        const resizedContext = resizedCanvas.getContext('2d');
-
-        // Zeichne das ursprüngliche Bild auf das neue Canvas mit der neuen Größe (resizen).
-        resizedContext.drawImage(canvas, 0, 0, newWidth, newHeight);
-
-        var resized_img = resizedContext.getImageData(0, 0, 1, 768);
-        ctx.putImageData(resized_img, 767, 10);
-    }
-  }
-
-  //demonstration for raw data 
+  /**main page pseudo data and canvas generation
+   * 
+   * may stop this to save computation power when main page is not displayed
+   * 
+   * **/ 
+
+  //place symbols in canvas 
   const canvas_raw_data = document.getElementById("cvs_raw");
   const context_raw_data = canvas_raw_data.getContext("2d");
 
+  //place cloud symbol
   const img_cloud = new Image(); 
   img_cloud.src = "img/cloud.png";
   img_cloud.onload = function() {
     context_raw_data.drawImage(img_cloud, 250, -50, 250, 250); 
   }
 
+  //place smartphone symbol
   const img_smartphone = new Image(); 
   img_smartphone.src = "img/smartphone.png";
   img_smartphone.onload = function() {
     context_raw_data.drawImage(img_smartphone, -100, 250, 400, 400); 
   }
 
+  //place wifi symbol (normal and rotated)
   const img_wifi = new Image(); 
   img_wifi.src = "img/wifi.png";
   img_wifi.onload = function() {
@@ -1001,24 +256,27 @@
     context_raw_data.restore();
   }
 
+  //place microphone symbol 
   const img_microphone = new Image(); 
   img_microphone.src = "img/micro.png";
   img_microphone.onload = function() {
     context_raw_data.drawImage(img_microphone, 70, 350, 60, 60); 
   }
 
+  //place monitor symbol 
   const img_monitor = new Image(); 
   img_monitor.src = "img/monitor.png";
   img_monitor.onload = function() {
     context_raw_data.drawImage(img_monitor, 490, 290, 300, 300); 
   }
 
+  //generate random data for mqtt data transfer (0's and 1's) -> shift pseudo data through array 
   mqttpseudodata = new Array(); 
-
   setInterval(() => {
     if (mqttpseudodata.length >= 13){
       mqttpseudodata.pop(); 
     }
+    //left side
     context_raw_data.save();
     context_raw_data.rotate(-Math.PI / 4);
     context_raw_data.textAlign = "left";
@@ -1034,7 +292,7 @@
     context_raw_data.fillStyle = "black";
     context_raw_data.fillText(to_print, -140, 290);
     context_raw_data.restore();
-    //
+    //right side 
     context_raw_data.save();
     context_raw_data.rotate(Math.PI / 4);
     context_raw_data.textAlign = "left";
@@ -1050,12 +308,13 @@
     context_raw_data.restore();
   }, 60);
 
+  //generate pseudo data for display on smartphone and monitor (values between 0..1) -> shift pseudo data through array 
   arrdata = new Array();  
-
   setInterval(() => {
     if (arrdata.length >= 40){
       arrdata.pop(); 
     }
+    //generate random numbers 
     new_num = Math.random(); 
     arrdata.unshift(new_num); 
     context_raw_data.fillStyle = "white";
@@ -1063,6 +322,7 @@
     context_raw_data.fillRect(510, 330, 240, 145);
     row_data = ["", "", "", "", "", "", "", ""]; 
     row_data_monitor = ["", "", "", "", "", ""]; 
+    //split array into rows and append data to the row data array (5 values per row, 8 rows for smartphone and 6 rows for monitor)
     for (i = 0; i < arrdata.length; i++){
       if (i <= 4){
         row_data[0] = row_data[0] + " " + arrdata[i].toFixed(2); 
@@ -1088,6 +348,7 @@
         row_data[7] = row_data[7] + " " + arrdata[i].toFixed(2);
       }
     }
+    //print data 
     context_raw_data.fillStyle = "black";
     for (i = 0; i < row_data.length; i++){
       context_raw_data.font = "10px arial";
@@ -1099,126 +360,12 @@
     }
   }, 100);
 
-  //Audio Analog example chart 
-  const ctx_audio_analog = document.getElementById('audio_analog');
-  var data_audio_analog = new Array();
-  var label_audio_analog = new Array();
-  const num_samples = 2048; 
-  const sample_time = 2; 
-  var dt = sample_time/num_samples;
-
-  const amp = Math.floor(Math.random()*10)+1;
-  const freq1 = Math.floor(Math.random()*3)+1;
-  const freq2 = Math.floor(Math.random()*3)+1;
-  const freq3 = Math.floor(Math.random()*3)+1;
-
-  for (i = 0; i < num_samples; i++){
-    //sin(2*pi*f*t) --> sin(2*pi*f*i*dt)
-    var t = i*dt; 
-    data_audio_analog.push(amp*Math.sin(2*Math.PI*freq1*t)+amp*Math.sin(2*Math.PI*freq2*t)+amp*Math.sin(2*Math.PI*freq3*t));
-    label_audio_analog.push(t.toFixed(2));
-  }
-
-  var chart_audio_analog =new Chart(ctx_audio_analog, {
-    type: 'line',
-    data: {
-      labels: label_audio_analog,
-      datasets: [{
-        label: 'Wert Analogsignal',
-        data: data_audio_analog,
-        borderWidth: 1,
-        borderColor: 'rgb(0, 0, 234)',
-        pointStyle: false,
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          ticks: {
-            stepSize: 1
-          }
-        },
-        x: {
-          ticks: {
-            maxTicksLimit: 14,
-            suggestedMin: 0, // Hier kannst du den Startwert für die x-Achse festlegen
-            suggestedMax: num_samples // Hier kannst du den Endwert für die x-Achse festlegen
-          }
-        },
-      },
-      plugins: {
-        title: {
-          display: true,
-          text: 'Analog'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_audio_analog.options.animation = false;
-
-
-  //Audio Digital example chart 
-  const ctx_audio_digital = document.getElementById('audio_digital');
-  var data_audio_digital = new Array();
-  var label_audio_digital = new Array();
-  const num_samples_digital = 128; 
-  dt = sample_time/num_samples_digital;
-
-  for (i = 0; i < num_samples_digital; i++){
-    //sin(2*pi*f*t) --> sin(2*pi*f*i*dt)
-    var t = i*dt; 
-    sampled_signal = Math.floor(amp*Math.sin(2*Math.PI*freq1*t)+amp*Math.sin(2*Math.PI*freq2*t)+amp*Math.sin(2*Math.PI*freq3*t)); 
-    data_audio_digital.push({x: t.toFixed(2), y: sampled_signal});
-    var t1 = t+dt;
-    data_audio_digital.push({x: t1.toFixed(2), y: sampled_signal});
-    label_audio_digital.push(t.toFixed(2));
-  } 
-
-  var chart_audio_digital =new Chart(ctx_audio_digital, {
-    type: 'line',
-    data: {
-      labels: label_audio_digital,
-      datasets: [{
-        label: 'Wert Digitalsignal',
-        data: data_audio_digital,
-        borderWidth: 1,
-        borderColor: 'rgb(0, 0, 234)',
-        pointStyle: false,
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          ticks: {
-            stepSize: 1
-          }
-        },
-        x: {
-          ticks: {
-            maxTicksLimit: 14,
-            suggestedMin: 0, // Hier kannst du den Startwert für die x-Achse festlegen
-            suggestedMax: num_samples_digital // Hier kannst du den Endwert für die x-Achse festlegen
-          }
-        },
-      },
-      plugins: {
-        title: {
-          display: true,
-          text: 'Digital'
-        },
-        legend: {
-            display: false
-        }
-      }
-    }
-  });
-
-  chart_audio_analog.options.animation = false;
-
 </script>
+
+<script src="js/chart_controller.js"></script> 
+<script src="js/spectrogram.js"></script> 
+<script src="js/mqtt_handling.js"></script> 
+<script src="js/page_handling.js"></script> 
+
 </body>
 </html>
