@@ -1,0 +1,391 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		254C701D2A52CB47003D996E /* GyrosensorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C701C2A52CB47003D996E /* GyrosensorApp.swift */; };
+		254C701F2A52CB47003D996E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C701E2A52CB47003D996E /* ContentView.swift */; };
+		254C70212A52CB48003D996E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 254C70202A52CB48003D996E /* Assets.xcassets */; };
+		254C70242A52CB48003D996E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 254C70232A52CB48003D996E /* Preview Assets.xcassets */; };
+		254C702C2A52CCC8003D996E /* MQTTNIO in Frameworks */ = {isa = PBXBuildFile; productRef = 254C702B2A52CCC8003D996E /* MQTTNIO */; };
+		259D43FF2A949F2C004C0E1F /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259D43FE2A949F2C004C0E1F /* CustomTabBar.swift */; };
+		259D44042A951F4E004C0E1F /* AudioSpectrogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259D44002A951F4E004C0E1F /* AudioSpectrogram.swift */; };
+		259D44052A951F4E004C0E1F /* MelSpectrogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259D44012A951F4E004C0E1F /* MelSpectrogram.swift */; };
+		259D44072A951F4E004C0E1F /* AudioSpectrogram+AVCaptureAudioDataOutputSampleBufferDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259D44032A951F4E004C0E1F /* AudioSpectrogram+AVCaptureAudioDataOutputSampleBufferDelegate.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		254C70192A52CB47003D996E /* Gyrosensor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gyrosensor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		254C701C2A52CB47003D996E /* GyrosensorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyrosensorApp.swift; sourceTree = "<group>"; };
+		254C701E2A52CB47003D996E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		254C70202A52CB48003D996E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		254C70232A52CB48003D996E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		256137062A8BA50400075199 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		259D43FE2A949F2C004C0E1F /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		259D44002A951F4E004C0E1F /* AudioSpectrogram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSpectrogram.swift; sourceTree = "<group>"; };
+		259D44012A951F4E004C0E1F /* MelSpectrogram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelSpectrogram.swift; sourceTree = "<group>"; };
+		259D44032A951F4E004C0E1F /* AudioSpectrogram+AVCaptureAudioDataOutputSampleBufferDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioSpectrogram+AVCaptureAudioDataOutputSampleBufferDelegate.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		254C70162A52CB47003D996E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				254C702C2A52CCC8003D996E /* MQTTNIO in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		254C70102A52CB47003D996E = {
+			isa = PBXGroup;
+			children = (
+				254C701B2A52CB47003D996E /* Gyrosensor */,
+				254C701A2A52CB47003D996E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		254C701A2A52CB47003D996E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				254C70192A52CB47003D996E /* Gyrosensor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		254C701B2A52CB47003D996E /* Gyrosensor */ = {
+			isa = PBXGroup;
+			children = (
+				259D44002A951F4E004C0E1F /* AudioSpectrogram.swift */,
+				259D44032A951F4E004C0E1F /* AudioSpectrogram+AVCaptureAudioDataOutputSampleBufferDelegate.swift */,
+				259D44012A951F4E004C0E1F /* MelSpectrogram.swift */,
+				256137062A8BA50400075199 /* Info.plist */,
+				254C701C2A52CB47003D996E /* GyrosensorApp.swift */,
+				254C701E2A52CB47003D996E /* ContentView.swift */,
+				254C70202A52CB48003D996E /* Assets.xcassets */,
+				254C70222A52CB48003D996E /* Preview Content */,
+				259D43FE2A949F2C004C0E1F /* CustomTabBar.swift */,
+			);
+			path = Gyrosensor;
+			sourceTree = "<group>";
+		};
+		254C70222A52CB48003D996E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				254C70232A52CB48003D996E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		254C70182A52CB47003D996E /* Gyrosensor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 254C70272A52CB48003D996E /* Build configuration list for PBXNativeTarget "Gyrosensor" */;
+			buildPhases = (
+				254C70152A52CB47003D996E /* Sources */,
+				254C70162A52CB47003D996E /* Frameworks */,
+				254C70172A52CB47003D996E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Gyrosensor;
+			packageProductDependencies = (
+				254C702B2A52CCC8003D996E /* MQTTNIO */,
+			);
+			productName = Gyrosensor;
+			productReference = 254C70192A52CB47003D996E /* Gyrosensor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		254C70112A52CB47003D996E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					254C70182A52CB47003D996E = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
+			};
+			buildConfigurationList = 254C70142A52CB47003D996E /* Build configuration list for PBXProject "Gyrosensor" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 254C70102A52CB47003D996E;
+			packageReferences = (
+				254C702A2A52CCC8003D996E /* XCRemoteSwiftPackageReference "mqtt-nio" */,
+			);
+			productRefGroup = 254C701A2A52CB47003D996E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				254C70182A52CB47003D996E /* Gyrosensor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		254C70172A52CB47003D996E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				254C70242A52CB48003D996E /* Preview Assets.xcassets in Resources */,
+				254C70212A52CB48003D996E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		254C70152A52CB47003D996E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				254C701F2A52CB47003D996E /* ContentView.swift in Sources */,
+				259D44072A951F4E004C0E1F /* AudioSpectrogram+AVCaptureAudioDataOutputSampleBufferDelegate.swift in Sources */,
+				259D43FF2A949F2C004C0E1F /* CustomTabBar.swift in Sources */,
+				259D44052A951F4E004C0E1F /* MelSpectrogram.swift in Sources */,
+				259D44042A951F4E004C0E1F /* AudioSpectrogram.swift in Sources */,
+				254C701D2A52CB47003D996E /* GyrosensorApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		254C70252A52CB48003D996E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		254C70262A52CB48003D996E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		254C70282A52CB48003D996E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Gyrosensor/Preview Content\"";
+				DEVELOPMENT_TEAM = K724J5ZJ7K;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Gyrosensor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SensorApp;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Timo.Gyrosensor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		254C70292A52CB48003D996E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Gyrosensor/Preview Content\"";
+				DEVELOPMENT_TEAM = K724J5ZJ7K;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Gyrosensor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SensorApp;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Timo.Gyrosensor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		254C70142A52CB47003D996E /* Build configuration list for PBXProject "Gyrosensor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				254C70252A52CB48003D996E /* Debug */,
+				254C70262A52CB48003D996E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		254C70272A52CB48003D996E /* Build configuration list for PBXNativeTarget "Gyrosensor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				254C70282A52CB48003D996E /* Debug */,
+				254C70292A52CB48003D996E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		254C702A2A52CCC8003D996E /* XCRemoteSwiftPackageReference "mqtt-nio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sroebert/mqtt-nio";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		254C702B2A52CCC8003D996E /* MQTTNIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 254C702A2A52CCC8003D996E /* XCRemoteSwiftPackageReference "mqtt-nio" */;
+			productName = MQTTNIO;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 254C70112A52CB47003D996E /* Project object */;
+}
