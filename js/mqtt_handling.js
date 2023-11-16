@@ -6,6 +6,8 @@
 
   document.getElementById("MQTTIP").innerHTML = host; 
 
+  var phone_id = "alsdlkjf";
+
   //MQTT Options
   const options = {
     keepalive: 60,
@@ -43,7 +45,7 @@
   function initMQTT(newIP){
     if (newIP){
       new_host = document.getElementById("newMQTTIP").value; 
-      console.log(new_host);
+      host = new_host; 
       document.getElementById("MQTTIP").innerHTML = new_host; 
       //disconnect 
       client.end();
@@ -70,48 +72,55 @@
     })
 
     //subscripe to topic 
-    client.subscribe('gyro/#'); 
-    client.subscribe('audio/#');
-    client.subscribe('accel/#');
-    client.subscribe('magnet/#');
+    client.subscribe(phone_id+'/login/#'); 
+    client.subscribe(phone_id+'/gyro/#'); 
+    client.subscribe(phone_id+'/audio/#');
+    client.subscribe(phone_id+'/accel/#');
+    client.subscribe(phone_id+'/magnet/#');
 
     //fetch data 
     client.on('message', (topic, message) => {
       topic_target = topic.toString();
       //split topic and send data to viz 
-      if (topic_target == "gyro/x") {
+      if (topic_target == phone_id+"/gyro/x") {
         addData(chart_gyro_x, x_gyro_counter, parseFloat(message));
         addData(chart_gyro_preview_x, x_gyro_counter, parseFloat(message));
         x_gyro_counter += 1;  
-      } else if (topic_target == "gyro/y"){
+      } else if (topic_target == phone_id+"/gyro/y"){
         addData(chart_gyro_y, y_gyro_counter, parseFloat(message)); 
         y_gyro_counter += 1; 
-      } else if (topic_target == "gyro/z"){
+      } else if (topic_target == phone_id+"/gyro/z"){
         addData(chart_gyro_z, z_gyro_counter, parseFloat(message)); 
         z_gyro_counter += 1; 
-      } else if (topic_target == "accel/x"){
+      } else if (topic_target == phone_id+"/accel/x"){
         addData(chart_accel_x, x_accel_counter, parseFloat(message)); 
         addData(chart_accel_preview_x, x_accel_counter, parseFloat(message)); 
         x_accel_counter += 1; 
-      } else if (topic_target == "accel/y"){
+      } else if (topic_target == phone_id+"/accel/y"){
         addData(chart_accel_y, y_accel_counter, parseFloat(message)); 
         y_accel_counter += 1; 
-      } else if (topic_target == "accel/z"){
+      } else if (topic_target == phone_id+"/accel/z"){
         addData(chart_accel_z, z_accel_counter, parseFloat(message)); 
         z_accel_counter += 1; 
-      } else if (topic_target == "magnet/x"){
+      } else if (topic_target == phone_id+"/magnet/x"){
         addData(chart_magnet_x, x_magnet_counter, parseFloat(message)); 
         addData(chart_magnet_preview_x, x_magnet_counter, parseFloat(message)); 
         x_magnet_counter += 1; 
-      } else if (topic_target == "magnet/y"){
+      } else if (topic_target == phone_id+"/magnet/y"){
         addData(chart_magnet_y, y_magnet_counter, parseFloat(message)); 
         y_magnet_counter += 1; 
-      } else if (topic_target == "magnet/z"){
+      } else if (topic_target == phone_id+"/magnet/z"){
         addData(chart_magnet_z, z_magnet_counter, parseFloat(message)); 
         z_magnet_counter += 1; 
-      } else if (topic_target == "audio"){
+      } else if (topic_target == phone_id+"/audio"){
         spectrogram.newData(message.toString());
         spectrogram_preview.newData(message.toString());
+      } else if (topic_target == phone_id+"/login/"){
+        let event = {target: {id: "overlay"}};
+        clearCharts(); 
+        clearSpectrograms(); 
+        closeWindow(event);
+        switchSite(2);
       }
     })
 

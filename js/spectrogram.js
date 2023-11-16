@@ -3,8 +3,22 @@ spectrogram = new Spectrogram("cvs_spectro");
 spectrogram_preview.initialize();
 spectrogram.initialize();
 
+var spectrograms = new Array();
+spectrograms.push(spectrogram);
+spectrograms.push(spectrogram_preview);
+
 drawAxes("cvs_axis_preview"); 
 drawAxes("cvs_axis"); 
+
+function clearSpectrograms(){
+  try {
+    for (i = 0; i < spectrograms.length; i++){
+      spectrograms[i].initialize(); 
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 function drawAxes(cvs){
   //draw y-axis 

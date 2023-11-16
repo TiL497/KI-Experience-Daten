@@ -8,6 +8,7 @@
 import SwiftUI
 
 enum Tab: String, CaseIterable {
+    case house
     case gyroscope
     case accel
     case magnet
@@ -19,7 +20,7 @@ struct CustomTabBar: View {
     
     @Binding var selectedTab: Tab
     @State private var idx = 0
-    @State private var tabIcon = "gyroscope"
+    @State private var tabIcon = "house"
     
     var body: some View {
         VStack {
@@ -32,22 +33,28 @@ struct CustomTabBar: View {
                         withAnimation(.easeIn(duration: 0.1)) {
                             if idx > 0 {
                                 idx = idx - 1
-                                tabIcon = "gyroscope"
                                 switch idx {
                                     case 0:
-                                        selectedTab = Tab.gyroscope
+                                        selectedTab = Tab.house
+                                        tabIcon = "house"
                                     case 1:
-                                        selectedTab = Tab.accel
+                                        selectedTab = Tab.gyroscope
+                                        tabIcon = "gyroscope"
                                     case 2:
-                                        selectedTab = Tab.magnet
+                                        selectedTab = Tab.accel
+                                        tabIcon = "gyroscope"
                                     case 3:
+                                        selectedTab = Tab.magnet
+                                        tabIcon = "gyroscope"
+                                    case 4:
                                         selectedTab = Tab.mic
                                         tabIcon = "mic"
-                                    case 4:
+                                    case 5:
                                         selectedTab = Tab.gear
                                         tabIcon = "gear"
                                     default:
-                                        selectedTab = Tab.gyroscope
+                                        selectedTab = Tab.house
+                                        tabIcon = "house"
                                 }
                             }
                         }
@@ -66,22 +73,28 @@ struct CustomTabBar: View {
                         withAnimation(.easeIn(duration: 0.1)) {
                             if idx < 4 {
                                 idx = idx + 1
-                                tabIcon = "gyroscope"
                                 switch idx {
                                     case 0:
-                                        selectedTab = Tab.gyroscope
+                                        selectedTab = Tab.house
+                                        tabIcon = "house"
                                     case 1:
-                                        selectedTab = Tab.accel
+                                        selectedTab = Tab.gyroscope
+                                        tabIcon = "gyroscope"
                                     case 2:
-                                        selectedTab = Tab.magnet
+                                        selectedTab = Tab.accel
+                                        tabIcon = "gyroscope"
                                     case 3:
+                                        selectedTab = Tab.magnet
+                                        tabIcon = "gyroscope"
+                                    case 4:
                                         selectedTab = Tab.mic
                                         tabIcon = "mic"
-                                    case 4:
+                                    case 5:
                                         selectedTab = Tab.gear
                                         tabIcon = "gear"
                                     default:
-                                        selectedTab = Tab.gyroscope
+                                        selectedTab = Tab.house
+                                        tabIcon = "house"
                                 }
                             }
                         }

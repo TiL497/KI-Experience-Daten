@@ -12,6 +12,7 @@
 		254C70212A52CB48003D996E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 254C70202A52CB48003D996E /* Assets.xcassets */; };
 		254C70242A52CB48003D996E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 254C70232A52CB48003D996E /* Preview Assets.xcassets */; };
 		254C702C2A52CCC8003D996E /* MQTTNIO in Frameworks */ = {isa = PBXBuildFile; productRef = 254C702B2A52CCC8003D996E /* MQTTNIO */; };
+		2584D34A2B036CF5003862F1 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 2584D3492B036CF5003862F1 /* CodeScanner */; };
 		259D43FF2A949F2C004C0E1F /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259D43FE2A949F2C004C0E1F /* CustomTabBar.swift */; };
 		259D44042A951F4E004C0E1F /* AudioSpectrogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259D44002A951F4E004C0E1F /* AudioSpectrogram.swift */; };
 		259D44052A951F4E004C0E1F /* MelSpectrogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259D44012A951F4E004C0E1F /* MelSpectrogram.swift */; };
@@ -36,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2584D34A2B036CF5003862F1 /* CodeScanner in Frameworks */,
 				254C702C2A52CCC8003D996E /* MQTTNIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +103,7 @@
 			name = Gyrosensor;
 			packageProductDependencies = (
 				254C702B2A52CCC8003D996E /* MQTTNIO */,
+				2584D3492B036CF5003862F1 /* CodeScanner */,
 			);
 			productName = Gyrosensor;
 			productReference = 254C70192A52CB47003D996E /* Gyrosensor.app */;
@@ -132,6 +135,7 @@
 			mainGroup = 254C70102A52CB47003D996E;
 			packageReferences = (
 				254C702A2A52CCC8003D996E /* XCRemoteSwiftPackageReference "mqtt-nio" */,
+				2584D3482B036CF5003862F1 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = 254C701A2A52CB47003D996E /* Products */;
 			projectDirPath = "";
@@ -377,6 +381,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		2584D3482B036CF5003862F1 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -384,6 +396,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 254C702A2A52CCC8003D996E /* XCRemoteSwiftPackageReference "mqtt-nio" */;
 			productName = MQTTNIO;
+		};
+		2584D3492B036CF5003862F1 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2584D3482B036CF5003862F1 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

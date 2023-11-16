@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Speicherung in Dokumente</string>
+	<string>Zugriff auf Audiodaten</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Benötigt für Login</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UISceneConfigurations</key>

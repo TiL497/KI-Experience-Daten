@@ -1,5 +1,8 @@
 Chart.defaults.font.size = 14;
 
+//list of charts
+var charts = new Array(); 
+
 //Gyrosensor x direction Chart
 const ctx_x = document.getElementById('gyro_x');
 var data_x = [];
@@ -27,6 +30,9 @@ var chart_gyro_x =new Chart(ctx_x, {
             stepSize: 1
         }
       },
+      x: {
+        display: false,
+      }
     },
     plugins: {
       title: {
@@ -41,6 +47,7 @@ var chart_gyro_x =new Chart(ctx_x, {
 });
 
 chart_gyro_x.options.animation = false;
+charts.push(chart_gyro_x);
 
 //Gyrosensor x direction preview Chart
 const ctx_preview_x = document.getElementById('gyro_preview_x');
@@ -67,6 +74,9 @@ var chart_gyro_preview_x =new Chart(ctx_preview_x, {
             stepSize: 1
         }
       },
+      x: {
+        display: false,
+      }
     },
     plugins: {
       title: {
@@ -81,6 +91,7 @@ var chart_gyro_preview_x =new Chart(ctx_preview_x, {
 });
 
 chart_gyro_preview_x.options.animation = false;
+charts.push(chart_gyro_preview_x);
 
 //Gyrosensor y direction Chart 
 const ctx_y = document.getElementById('gyro_y');
@@ -108,6 +119,9 @@ var chart_gyro_y = new Chart(ctx_y, {
         ticks: {
             stepSize: 1
         }
+      },
+      x: {
+        display: false,
       }
     },
     plugins: {
@@ -123,6 +137,7 @@ var chart_gyro_y = new Chart(ctx_y, {
 });
 
 chart_gyro_y.options.animation = false;
+charts.push(chart_gyro_y);
 
 //Gyrosensor z direction Chart
 const ctx_z = document.getElementById('gyro_z');
@@ -150,6 +165,9 @@ var chart_gyro_z =new Chart(ctx_z, {
         ticks: {
             stepSize: 1
         }
+      },
+      x: {
+        display: false,
       }
     },
     plugins: {
@@ -165,6 +183,8 @@ var chart_gyro_z =new Chart(ctx_z, {
 });
 
 chart_gyro_z.options.animation = false;
+charts.push(chart_gyro_z);
+
 
 //Acceleration x direction Chart
 const ctx_accel_x = document.getElementById('accel_x');
@@ -192,6 +212,9 @@ var chart_accel_x =new Chart(ctx_accel_x, {
         ticks: {
             stepSize: 1
         }
+      },
+      x: {
+        display: false,
       }
     },
     plugins: {
@@ -207,6 +230,7 @@ var chart_accel_x =new Chart(ctx_accel_x, {
 });
 
 chart_accel_x.options.animation = false;
+charts.push(chart_accel_x);
 
 //Acceleration x direction preview Chart
 const ctx_accel_preview_x = document.getElementById('accel_preview_x');
@@ -232,6 +256,9 @@ var chart_accel_preview_x =new Chart(ctx_accel_preview_x, {
         ticks: {
             stepSize: 1
         }
+      },
+      x: {
+        display: false,
       }
     },
     plugins: {
@@ -247,6 +274,7 @@ var chart_accel_preview_x =new Chart(ctx_accel_preview_x, {
 });
 
 chart_accel_preview_x.options.animation = false;
+charts.push(chart_accel_preview_x);
 
 //Acceleration y direction Chart
 const ctx_accel_y = document.getElementById('accel_y');
@@ -274,6 +302,9 @@ var chart_accel_y =new Chart(ctx_accel_y, {
         ticks: {
             stepSize: 1
         }
+      },
+      x: {
+        display: false,
       }
     },
     plugins: {
@@ -289,6 +320,7 @@ var chart_accel_y =new Chart(ctx_accel_y, {
 });
 
 chart_accel_y.options.animation = false;
+charts.push(chart_accel_y);
 
 //Acceleration z direction Chart
 const ctx_accel_z = document.getElementById('accel_z');
@@ -316,6 +348,9 @@ var chart_accel_z =new Chart(ctx_accel_z, {
         ticks: {
             stepSize: 1
         }
+      },
+      x: {
+        display: false,
       }
     },
     plugins: {
@@ -331,6 +366,7 @@ var chart_accel_z =new Chart(ctx_accel_z, {
 });
 
 chart_accel_z.options.animation = false;
+charts.push(chart_accel_z);
 
 //Magnetometer x direction Chart
 const ctx_magnet_x = document.getElementById('magnet_x');
@@ -358,6 +394,9 @@ var chart_magnet_x =new Chart(ctx_magnet_x, {
         ticks: {
             stepSize: 1
         }
+      },
+      x: {
+        display: false,
       }
     },
     plugins: {
@@ -373,6 +412,7 @@ var chart_magnet_x =new Chart(ctx_magnet_x, {
 });
 
 chart_magnet_x.options.animation = false;
+charts.push(chart_magnet_x);
 
 //Magnetometer x direction Chart
 const ctx_magnet_preview_x = document.getElementById('magnet_preview_x');
@@ -400,6 +440,9 @@ var chart_magnet_preview_x =new Chart(ctx_magnet_preview_x, {
         ticks: {
             stepSize: 1
         }
+      },
+      x: {
+        display: false,
       }
     },
     plugins: {
@@ -415,6 +458,7 @@ var chart_magnet_preview_x =new Chart(ctx_magnet_preview_x, {
 });
 
 chart_magnet_preview_x.options.animation = false;
+charts.push(chart_magnet_preview_x);
 
 //Magnetometer y direction Chart
 const ctx_magnet_y = document.getElementById('magnet_y');
@@ -442,6 +486,9 @@ var chart_magnet_y =new Chart(ctx_magnet_y, {
         ticks: {
             stepSize: 1
         }
+      },
+      x: {
+        display: false,
       }
     },
     plugins: {
@@ -457,6 +504,7 @@ var chart_magnet_y =new Chart(ctx_magnet_y, {
 });
 
 chart_magnet_y.options.animation = false;
+charts.push(chart_magnet_y);
 
 //Magnetometer y direction Chart
 const ctx_magnet_z = document.getElementById('magnet_z');
@@ -484,6 +532,9 @@ var chart_magnet_z =new Chart(ctx_magnet_z, {
         ticks: {
             stepSize: 1
         }
+      },
+      x: {
+        display: false,
       }
     },
     plugins: {
@@ -499,7 +550,9 @@ var chart_magnet_z =new Chart(ctx_magnet_z, {
 });
 
 chart_magnet_z.options.animation = false;
+charts.push(chart_magnet_z);
 
+//add Data to charts 
 function addData(chart, label, data) {
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
@@ -512,4 +565,19 @@ function addData(chart, label, data) {
       });
     }
     chart.update();
+}
+
+//clear data of charts 
+function clearCharts(){
+  try {
+    for (i = 0; i < charts.length; i++){
+      charts[i].data.labels = [];
+      charts[i].data.datasets.forEach((dataset) => {
+        dataset.data = []; 
+      });
+      charts[i].update(); 
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

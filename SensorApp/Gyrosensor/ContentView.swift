@@ -11,11 +11,12 @@ import CoreMotion
 import Charts
 import MQTTNIO
 import AVFoundation
+import CodeScanner
 
 struct ContentView: View {
     
     //gyroscope as default selection
-    @State private var selectedTab: Tab = .gyroscope
+    @State private var selectedTab: Tab = .house
     
     //create spectrogram
     let audioSpectrogram = AudioSpectrogram()
@@ -32,6 +33,8 @@ struct ContentView: View {
                 //view by selected tab
                 TabView(selection: $selectedTab) {
                     switch selectedTab {
+                        case .house:
+                            LoginView()
                         case .gyroscope:
                             GyroView(motion: GyroMotionManager())
                         case .mic:
@@ -61,10 +64,12 @@ class MQTTSettings: ObservableObject{
     static let shared = MQTTSettings(mqtthost: "192.168.137.1")
     
     @Published var mqtthost: String
+    @Published var mqttid: String
     @Published var client: MQTTClient
     //initialize on startup
     init(mqtthost: String) {
         self.mqtthost = mqtthost
+        self.mqttid = "KI-Werkstatt"
         self.client = MQTTClient(
             configuration: .init(
                 target: .host(mqtthost, port: 1883)
@@ -84,6 +89,84 @@ class MQTTSettings: ObservableObject{
     
 }
 
+extension Collection where Indices.Iterator.Element == Index {
+    subscript (exist index: Index) -> Iterator.Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
+
+struct LoginView: View {
+    
+    @StateObject var mqtt = MQTTSettings.shared
+    
+    @State var PresentingScanner = false
+    @State var scannedIP: String = ""
+    @State var scannedID: String = ""
+    
+    //scanning view from Library
+    var scanner: some View {
+        CodeScannerView(codeTypes: [.qr], completion: { result in
+            //get ip and id from qr code
+            if case let .success(code) = result {
+                guard let data = code.string.components(separatedBy: "//")[exist: 1] else {self.PresentingScanner = false
+                    self.scannedIP = "Error"
+                    self.scannedID = ""
+                    return}
+                let sub_data = data.components(separatedBy: ";")
+                guard let mqttfull = sub_data[exist: 0] else
+                    {self.PresentingScanner = false
+                    self.scannedIP = "Error"
+                    self.scannedID = ""
+                    return}
+                guard let mqttip = mqttfull.components(separatedBy: ":")[exist: 0] else
+                    {self.PresentingScanner = false
+                    self.scannedIP = "Error"
+                    self.scannedID = ""
+                    return}
+                guard let mqttid = sub_data[exist: 1] else
+                    {self.PresentingScanner = false
+                    self.scannedIP = "Error"
+                    self.scannedID = ""
+                    return}
+                self.scannedIP = mqttip//sub_data[0].components(separatedBy: ":")[0]
+                self.scannedID = mqttid//sub_data[1]
+                mqtt.mqtthost = self.scannedIP
+                mqtt.mqttid = self.scannedID
+                mqtt.changeHost()
+                self.mqtt.client.connect()
+                self.mqtt.client.publish(mqtt.mqttid, to:mqtt.mqttid+"/login/")
+                self.PresentingScanner = false
+            }
+        })
+    }
+    
+    //design of Login view
+    var body: some View {
+        VStack {
+            Text("Hochschule Aalen - KI Werkstatt")
+                .padding()
+            Text(scannedIP)
+                .padding()
+            Text(scannedID)
+                .padding()
+            Button("Login"){
+                self.PresentingScanner = true
+            }
+                .padding()
+                .bold()
+                .frame(width: 100, height:40)
+                .background(Color.blue)
+                .foregroundColor(Color.white)
+                .cornerRadius(10)
+            
+            .sheet(isPresented: $PresentingScanner){
+                self.scanner
+            }
+        }
+    }
+}
+
+//old
 struct MQTTSettingsView: View {
     
     @StateObject var mqtt = MQTTSettings.shared
@@ -477,9 +560,9 @@ class GyroMotionManager: ObservableObject {
                 self.x = gyro.rotationRate.x
                 self.y = gyro.rotationRate.y
                 self.z = gyro.rotationRate.z
-                self.mqtt.client.publish(String(format: "%.3f", self.x), to:"gyro/x")
-                self.mqtt.client.publish(String(format: "%.3f", self.y), to:"gyro/y")
-                self.mqtt.client.publish(String(format: "%.3f", self.z), to:"gyro/z")
+                self.mqtt.client.publish(String(format: "%.3f", self.x), to:self.mqtt.mqttid+"/gyro/x")
+                self.mqtt.client.publish(String(format: "%.3f", self.y), to:self.mqtt.mqttid+"/gyro/y")
+                self.mqtt.client.publish(String(format: "%.3f", self.z), to:self.mqtt.mqttid+"/gyro/z")
                 self.customAppend(date:Date(),value_x:self.x,value_y:self.y,value_z:self.z)
             }
             
@@ -548,9 +631,9 @@ class AccelMotionManager: ObservableObject {
                 self.x = accel.acceleration.x * 9.81
                 self.y = accel.acceleration.y * 9.81
                 self.z = accel.acceleration.z * 9.81
-                self.mqtt.client.publish(String(format: "%.3f", self.x), to:"accel/x")
-                self.mqtt.client.publish(String(format: "%.3f", self.y), to:"accel/y")
-                self.mqtt.client.publish(String(format: "%.3f", self.z), to:"accel/z")
+                self.mqtt.client.publish(String(format: "%.3f", self.x), to:self.mqtt.mqttid+"/accel/x")
+                self.mqtt.client.publish(String(format: "%.3f", self.y), to:self.mqtt.mqttid+"/accel/y")
+                self.mqtt.client.publish(String(format: "%.3f", self.z), to:self.mqtt.mqttid+"/accel/z")
                 self.customAppend(date:Date(),value_x:self.x,value_y:self.y,value_z:self.z)
             }
             
@@ -619,9 +702,9 @@ class MagneticFieldManager: ObservableObject {
                 self.x = magnet.magneticField.x
                 self.y = magnet.magneticField.y
                 self.z = magnet.magneticField.z
-                self.mqtt.client.publish(String(format: "%.3f", self.x), to:"magnet/x")
-                self.mqtt.client.publish(String(format: "%.3f", self.y), to:"magnet/y")
-                self.mqtt.client.publish(String(format: "%.3f", self.z), to:"magnet/z")
+                self.mqtt.client.publish(String(format: "%.3f", self.x), to:self.mqtt.mqttid+"/magnet/x")
+                self.mqtt.client.publish(String(format: "%.3f", self.y), to:self.mqtt.mqttid+"/magnet/y")
+                self.mqtt.client.publish(String(format: "%.3f", self.z), to:self.mqtt.mqttid+"/magnet/z")
                 self.customAppend(date:Date(),value_x:self.x,value_y:self.y,value_z:self.z)
             }
             

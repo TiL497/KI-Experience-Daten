@@ -6,6 +6,8 @@
 <script src="js/chart.js"></script>
 <script src="js/mqtt.min.js"></script>
 <link rel="stylesheet" href="css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
 </head>
 
@@ -33,7 +35,7 @@
             <img src="img/qr.png"> 
           </div>
           <div style="height: 50%;">
-            <button style="margin-left: 26.5%; margin-top: 5%; font-size: 25px;" class="button button_next" onClick="switchSite(2)">Hier klicken zum Start</button>
+            <button style="margin-left: 26.5%; margin-top: 5%; font-size: 25px;" class="button button_next" onClick="openWindow(4)">Hier klicken zum Start</button>
           </div>
         </div>
       </div>
@@ -44,37 +46,37 @@
     <div style="margin-top: 1vh; display:flex; flex-direction: column; width: 80wh; height: 85vh;">
       <div style="display: flex; flex-direction: row; width: 100%; height: 50%;">
         <div style="display: flex; flex-direction: column; width: 50%; height: 100%;" onClick="openWindow(0)">
-          <div style="width:100%; margin-left: 40%;">
+          <div style="width:100%; text-align: center">
             <h3>Drehe dein Handy</h3>
           </div>
-          <div style="width:100%; height: 90%; margin-left: 10%">
+          <div style="width:100%; height: 90%; display:flex; align-items: center; justify-content: center; margin: 0;">
             <canvas id="gyro_preview_x"></canvas>
           </div>
         </div>
         <div style="width: 50%; height: 100%; display: flex; flex-direction: column;" onClick="openWindow(1)">
-          <div style="width:100%; margin-left: 40%">
+          <div style="width:100%; text-align: center">
             <h3>Bewege dein Handy</h3>
           </div>
-          <div style="width:100%; height: 90%; margin-left: 10%">
+          <div style="width:100%; height: 90%; display:flex; align-items: center; justify-content: center; margin: 0;">
             <canvas id="accel_preview_x"></canvas>
           </div>     
         </div>
       </div>
       <div style="display: flex; flex-direction: row; width: 100%; height: 50%;">
         <div style="width: 50%; height: 100%; display: flex; flex-direction: column;" onClick="openWindow(2)">
-          <div style="width:100%; margin-left: 40%">
+          <div style="width:100%; text-align: center">
             <h3>Bewege den Magnet</h3>
           </div>
-          <div style="width:100%; height: 90%; margin-left: 10%">
+          <div style="width:100%; height: 90%; display:flex; align-items: center; justify-content: center; margin: 0;">
             <canvas id="magnet_preview_x"></canvas>
           </div> 
         </div>
         <div style="width: 50%; height: 100%;" onClick="openWindow(3)">
-          <div style="width:100%; margin-left: 40%">
+          <div style="width:100%; text-align: center">
             <h3>Spreche in dein Mikrofon</h3>
           </div>
           <div style="margin-top: 2%; display:flex;">
-            <div style="margin-left:23%">
+            <div style="margin-left:25%">
               <canvas width="100" height="360" id="cvs_axis_preview"></canvas>
             </div>
             <div>
@@ -174,6 +176,10 @@
           </div>
         </div>
       </div>
+      <div style="display:none;" id="login">
+        <p style="font-size: x-large; text-align: center; margin-top: 5%; margin-left: 25%; margin-right: 25%;">Zum Starten der Applikation bitte mit dem WLAN-Netzwerk verbinden und den nachfolgenden QR-Code mit dem Handy scannen.</p>
+        <div style="display:flex; align-items: center; justify-content: center; margin: 0; margin-top: 5%;" id="qrlogin"></div>
+      </div>
     </div>
   </div>
 
@@ -215,7 +221,7 @@
   <div style="display:flex;">
     <div style="width: 90%;"></div>
     <div style="width: 10%">
-      <p> Preview Version 10/23</p>
+      <p> Preview Version 11/23</p>
     </div>
   </div>
 
@@ -226,6 +232,11 @@
    * may stop this to save computation power when main page is not displayed
    * 
    * **/ 
+
+  function generateQR(address, id){
+    document.getElementById("qrlogin").innerHTML = "";
+    new QRCode(document.getElementById("qrlogin"), address + ";" + id);
+  }
 
   //place symbols in canvas 
   const canvas_raw_data = document.getElementById("cvs_raw");

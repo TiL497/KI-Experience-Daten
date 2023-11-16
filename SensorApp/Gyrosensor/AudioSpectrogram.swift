@@ -204,7 +204,7 @@ class AudioSpectrogram: NSObject, ObservableObject {
             to_send = to_send + String(format: "%.5f", frequencyDomainBuffer[i]) + ","
         }
         
-        self.mqtt.client.publish(to_send, to:"audio")
+        self.mqtt.client.publish(to_send, to:self.mqtt.mqttid+"/audio")
         
         frequencyDomainValues.append(contentsOf: frequencyDomainBuffer)
     }
