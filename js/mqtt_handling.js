@@ -1,7 +1,7 @@
   //Create MQTT Client ID
   const client_id = 'mqttjs_' + Math.random().toString(16).substr(2, 8);
   //connection url for MQTT connect
-  var host = 'ws://192.168.137.1:9001';
+  var host = 'ws://192.168.0.246:9001';
   //ws://broker.hivemq.com:8000/mqtt
 
   document.getElementById("MQTTIP").innerHTML = host; 
@@ -51,6 +51,11 @@
       client.end();
       //connect 
       client = mqtt.connect(new_host, options);
+    } else {
+      //disconnect 
+      client.end();
+      //connect 
+      client = mqtt.connect(host, options);  
     }
 
     //Error Handling
